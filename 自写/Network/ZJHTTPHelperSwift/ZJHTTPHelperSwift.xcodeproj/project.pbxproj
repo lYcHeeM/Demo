@@ -1,0 +1,337 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B23A35BD1E026B9400C2301A /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23A35BC1E026B9400C2301A /* VisualEffectView.swift */; };
+		B274B8371E02802F007A9AB2 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = B274B8361E02802F007A9AB2 /* FXBlurView.m */; };
+		B2CCD3441E0144AD008CD104 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CCD3431E0144AD008CD104 /* AppDelegate.swift */; };
+		B2CCD3461E0144AD008CD104 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CCD3451E0144AD008CD104 /* ViewController.swift */; };
+		B2CCD3491E0144AD008CD104 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CCD3471E0144AD008CD104 /* Main.storyboard */; };
+		B2CCD34B1E0144AD008CD104 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2CCD34A1E0144AD008CD104 /* Assets.xcassets */; };
+		B2CCD34E1E0144AD008CD104 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2CCD34C1E0144AD008CD104 /* LaunchScreen.storyboard */; };
+		B2CCD3561E0144C2008CD104 /* HUDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CCD3551E0144C2008CD104 /* HUDHelper.swift */; };
+		B2CCD35A1E014502008CD104 /* ZJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CCD3591E014502008CD104 /* ZJProgressHUD.m */; };
+		B2CCD35F1E01689E008CD104 /* ZJMBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2CCD35E1E01689E008CD104 /* ZJMBProgressHUD.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B23A35BC1E026B9400C2301A /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		B274B8351E02802F007A9AB2 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		B274B8361E02802F007A9AB2 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		B2CCD3401E0144AD008CD104 /* ZJHTTPHelperSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZJHTTPHelperSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2CCD3431E0144AD008CD104 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B2CCD3451E0144AD008CD104 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B2CCD3481E0144AD008CD104 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B2CCD34A1E0144AD008CD104 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B2CCD34D1E0144AD008CD104 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B2CCD34F1E0144AD008CD104 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2CCD3551E0144C2008CD104 /* HUDHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDHelper.swift; sourceTree = "<group>"; };
+		B2CCD3571E014502008CD104 /* ZJHTTPHelperSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZJHTTPHelperSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		B2CCD3581E014502008CD104 /* ZJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJProgressHUD.h; sourceTree = "<group>"; };
+		B2CCD3591E014502008CD104 /* ZJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJProgressHUD.m; sourceTree = "<group>"; };
+		B2CCD35E1E01689E008CD104 /* ZJMBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZJMBProgressHUD.bundle; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B2CCD33D1E0144AD008CD104 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B2CCD3371E0144AD008CD104 = {
+			isa = PBXGroup;
+			children = (
+				B2CCD3421E0144AD008CD104 /* ZJHTTPHelperSwift */,
+				B2CCD3411E0144AD008CD104 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B2CCD3411E0144AD008CD104 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B2CCD3401E0144AD008CD104 /* ZJHTTPHelperSwift.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B2CCD3421E0144AD008CD104 /* ZJHTTPHelperSwift */ = {
+			isa = PBXGroup;
+			children = (
+				B2CCD3431E0144AD008CD104 /* AppDelegate.swift */,
+				B2CCD3451E0144AD008CD104 /* ViewController.swift */,
+				B2CCD3551E0144C2008CD104 /* HUDHelper.swift */,
+				B23A35BC1E026B9400C2301A /* VisualEffectView.swift */,
+				B274B8351E02802F007A9AB2 /* FXBlurView.h */,
+				B274B8361E02802F007A9AB2 /* FXBlurView.m */,
+				B2CCD3581E014502008CD104 /* ZJProgressHUD.h */,
+				B2CCD3591E014502008CD104 /* ZJProgressHUD.m */,
+				B2CCD35E1E01689E008CD104 /* ZJMBProgressHUD.bundle */,
+				B2CCD3471E0144AD008CD104 /* Main.storyboard */,
+				B2CCD34A1E0144AD008CD104 /* Assets.xcassets */,
+				B2CCD34C1E0144AD008CD104 /* LaunchScreen.storyboard */,
+				B2CCD34F1E0144AD008CD104 /* Info.plist */,
+				B2CCD3571E014502008CD104 /* ZJHTTPHelperSwift-Bridging-Header.h */,
+			);
+			path = ZJHTTPHelperSwift;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B2CCD33F1E0144AD008CD104 /* ZJHTTPHelperSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2CCD3521E0144AD008CD104 /* Build configuration list for PBXNativeTarget "ZJHTTPHelperSwift" */;
+			buildPhases = (
+				B2CCD33C1E0144AD008CD104 /* Sources */,
+				B2CCD33D1E0144AD008CD104 /* Frameworks */,
+				B2CCD33E1E0144AD008CD104 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZJHTTPHelperSwift;
+			productName = ZJHTTPHelperSwift;
+			productReference = B2CCD3401E0144AD008CD104 /* ZJHTTPHelperSwift.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B2CCD3381E0144AD008CD104 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = RickLuo;
+				TargetAttributes = {
+					B2CCD33F1E0144AD008CD104 = {
+						CreatedOnToolsVersion = 8.2;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B2CCD33B1E0144AD008CD104 /* Build configuration list for PBXProject "ZJHTTPHelperSwift" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B2CCD3371E0144AD008CD104;
+			productRefGroup = B2CCD3411E0144AD008CD104 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B2CCD33F1E0144AD008CD104 /* ZJHTTPHelperSwift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B2CCD33E1E0144AD008CD104 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2CCD34E1E0144AD008CD104 /* LaunchScreen.storyboard in Resources */,
+				B2CCD34B1E0144AD008CD104 /* Assets.xcassets in Resources */,
+				B2CCD3491E0144AD008CD104 /* Main.storyboard in Resources */,
+				B2CCD35F1E01689E008CD104 /* ZJMBProgressHUD.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B2CCD33C1E0144AD008CD104 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B23A35BD1E026B9400C2301A /* VisualEffectView.swift in Sources */,
+				B2CCD3561E0144C2008CD104 /* HUDHelper.swift in Sources */,
+				B2CCD3461E0144AD008CD104 /* ViewController.swift in Sources */,
+				B2CCD3441E0144AD008CD104 /* AppDelegate.swift in Sources */,
+				B2CCD35A1E014502008CD104 /* ZJProgressHUD.m in Sources */,
+				B274B8371E02802F007A9AB2 /* FXBlurView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B2CCD3471E0144AD008CD104 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2CCD3481E0144AD008CD104 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B2CCD34C1E0144AD008CD104 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2CCD34D1E0144AD008CD104 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B2CCD3501E0144AD008CD104 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B2CCD3511E0144AD008CD104 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B2CCD3531E0144AD008CD104 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = ZJHTTPHelperSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rickluo.ZJHTTPHelperSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZJHTTPHelperSwift/ZJHTTPHelperSwift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B2CCD3541E0144AD008CD104 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = ZJHTTPHelperSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rickluo.ZJHTTPHelperSwift;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZJHTTPHelperSwift/ZJHTTPHelperSwift-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B2CCD33B1E0144AD008CD104 /* Build configuration list for PBXProject "ZJHTTPHelperSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2CCD3501E0144AD008CD104 /* Debug */,
+				B2CCD3511E0144AD008CD104 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2CCD3521E0144AD008CD104 /* Build configuration list for PBXNativeTarget "ZJHTTPHelperSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2CCD3531E0144AD008CD104 /* Debug */,
+				B2CCD3541E0144AD008CD104 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B2CCD3381E0144AD008CD104 /* Project object */;
+}

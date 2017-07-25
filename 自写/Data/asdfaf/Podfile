@@ -1,0 +1,7 @@
+platform :ios, "8.0"
+
+target ‘asdfaf’ do
+use_frameworks!  
+pod 'QBImagePickerController', '2.6.0'
+pod 'Aspects'
+end

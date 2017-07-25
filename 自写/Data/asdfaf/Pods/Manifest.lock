@@ -1,0 +1,15 @@
+PODS:
+  - Aspects (1.4.1)
+  - QBImagePickerController (2.6.0)
+
+DEPENDENCIES:
+  - Aspects
+  - QBImagePickerController (= 2.6.0)
+
+SPEC CHECKSUMS:
+  Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
+  QBImagePickerController: 095c2b2973de4da267334d2cfcac989c2eb5cdc2
+
+PODFILE CHECKSUM: 8b707664e7f70d48f12aa8cc3b2fdee094c0ea6c
+
+COCOAPODS: 1.2.0
