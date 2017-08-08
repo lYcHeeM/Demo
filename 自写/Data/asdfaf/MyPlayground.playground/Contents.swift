@@ -69,5 +69,3 @@ let a = Optional<Int>(10)
 let b = Optional<Int>.some(10)
 let c = Optional<Int>.none
 
-
-

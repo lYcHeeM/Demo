@@ -52,11 +52,6 @@ class PAMovingDossierRequest {
             totalFullScreenImagesCount += item.fullScreenImages.count
         }
         var tasks = [URLSessionTask?]()
-        let a = PABatchRequest()
-        a.addRequest(request: PARequest())
-        a.start { 
-            
-        }
         for index1 in 0..<images.count {
             let imagesModel = images[index1]
             guard let name = imagesModel.name, imagesModel.images.count > 0 else { continue }
