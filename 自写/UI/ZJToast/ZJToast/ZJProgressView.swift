@@ -20,15 +20,16 @@ public enum ZJProgressViewStyle: Int {
 open class ZJProgressView: UIView {
     
     fileprivate var style: ZJProgressViewStyle = .pie
-    fileprivate var outLineLayer : CAShapeLayer = CAShapeLayer()
-    fileprivate var progressLayer: CAShapeLayer = CAShapeLayer()
-    fileprivate var progressBar  : UIView!
+    fileprivate var backgroundLayer: CAShapeLayer = CAShapeLayer()
+    fileprivate var outLineLayer   : CAShapeLayer = CAShapeLayer()
+    fileprivate var progressLayer  : CAShapeLayer = CAShapeLayer()
+    fileprivate var progressBar    : UIView!
     
     fileprivate var previousProgress: CGFloat = 0
     open var progress: CGFloat = 0 {
         didSet {
             var usingProgress = progress
-            if usingProgress < 0 {
+            if usingProgress < 0 || usingProgress == -0 {
                 usingProgress = 0
             } else if usingProgress > 1 {
                 usingProgress = 1
@@ -37,16 +38,31 @@ open class ZJProgressView: UIView {
             drawShape(withProgress: usingProgress, animated: animated)
         }
     }
-    open var needsBackgroundView: Bool         = false
-    open var animated           : Bool         = false
-    open var animationDuration  : TimeInterval = 0.25
+    open var animated             : Bool         = false
+    open var animationDuration    : TimeInterval = 0.25
+    open var isRemovedOnCompletion: Bool         = true
+    open var backgroundMaskColor  : UIColor = UIColor(white: 0, alpha: 0.15) {
+        didSet {
+            backgroundLayer.fillColor = backgroundMaskColor.cgColor
+        }
+    }
+    open override var tintColor: UIColor? {
+        didSet {
+            outLineLayer.strokeColor     = tintColor?.cgColor
+            progressLayer.strokeColor    = tintColor?.cgColor
+            progressBar?.backgroundColor = tintColor
+        }
+    }
     
-    public required init(frame: CGRect, style: ZJProgressViewStyle = .pie, initialProgress: CGFloat = 0, outlineWidth: CGFloat = 1) {
-        self.style               = style
-        self.progress            = initialProgress
-        outLineLayer.lineWidth   = outlineWidth
-        outLineLayer.fillColor   = UIColor.clear.cgColor
-        outLineLayer.strokeColor = UIColor.white.cgColor
+    public required init(frame: CGRect, style: ZJProgressViewStyle = .pie, initialProgress: CGFloat = 0, outlineWidth: CGFloat = 1, animated: Bool = false, animationDuration: TimeInterval = 0.25) {
+        self.style                = style
+        self.progress             = initialProgress
+        self.animated             = animated
+        self.animationDuration    = animationDuration
+        backgroundLayer.fillColor = UIColor(white: 0, alpha: 0.15).cgColor
+        outLineLayer.lineWidth    = outlineWidth
+        outLineLayer.fillColor    = UIColor.clear.cgColor
+        outLineLayer.strokeColor  = UIColor.white.cgColor
         if style != .bar {
             progressLayer.strokeColor = UIColor.white.cgColor
             progressLayer.fillColor   = UIColor.clear.cgColor
@@ -65,7 +81,9 @@ open class ZJProgressView: UIView {
         }
         
         super.init(frame: tempF)
+        tintColor       = .white
         backgroundColor = UIColor.clear
+        layer.addSublayer(backgroundLayer)
         layer.addSublayer(outLineLayer)
         if style != .bar {
             layer.addSublayer(progressLayer)
@@ -90,6 +108,8 @@ extension ZJProgressView {
     
     open override var frame: CGRect {
         didSet {
+            let backgroundPath = UIBezierPath(roundedRect: bounds, cornerRadius: bounds.height/2)
+            backgroundLayer.path = backgroundPath.cgPath
             let outlineRect = CGRect(x: outLineLayer.lineWidth/2, y: outLineLayer.lineWidth/2, width: frame.width - outLineLayer.lineWidth, height: frame.height - outLineLayer.lineWidth)
             let outline = UIBezierPath(roundedRect: outlineRect, cornerRadius: bounds.height/2)
             outLineLayer.path = outline.cgPath
@@ -124,12 +144,13 @@ extension ZJProgressView {
             // 为了无缝连接上一次画出的图形, 此处不从上次结束的位置开始画, 而是回退5度后再画, 重叠5度无视觉影响
             // Practice shows that, if we start drawing a layer segment (which will display current progress) from previous angle, then a tinny gap between current layer segment and the previous one appears.
             // So I turn back 5 degrees current layer segment begins to draw to achieve a much better appearance.
-            if previousProgress > 0 && previousProgress < 1 {
+            // 注意当previousProgress <= 5/360时, 如果也回退5度, 会造成起始角度小于-2/π的现象.
+            if previousProgress > 5/360 && previousProgress < 1 {
                 startAngle -= CGFloat.pi * 2 / 360 * 5
             }
-            let endAngle    : CGFloat = -CGFloat.pi/2 + CGFloat.pi * 2 * progress
-            var lineWidth   : CGFloat!
-            var lineCap: String = "butt"
+            let endAngle : CGFloat = -CGFloat.pi/2 + CGFloat.pi * 2 * progress
+            var lineWidth: CGFloat!
+            var lineCap  : String = "butt"
             
             if style == .pie {
                 // 注意lineWidth属性, 它有一半的宽度是超出path所包住的范围
@@ -147,7 +168,7 @@ extension ZJProgressView {
             
             let segmentLayer = CAShapeLayer()
             segmentLayer.fillColor   = UIColor.clear.cgColor
-            segmentLayer.strokeColor = UIColor.white.cgColor
+            segmentLayer.strokeColor = tintColor?.cgColor
             segmentLayer.lineWidth   = lineWidth
             segmentLayer.lineCap     = lineCap
             segmentLayer.path        = progressPath.cgPath
@@ -162,7 +183,7 @@ extension ZJProgressView {
                 animation.isRemovedOnCompletion = false
                 segmentLayer.add(animation, forKey: "animation")
             } else {
-                if progress >= 1 {
+                if progress >= 1 && isRemovedOnCompletion {
                     removeFromSuperview()
                 }
             }
@@ -173,13 +194,13 @@ extension ZJProgressView {
                 UIView.animate(withDuration: animationDuration, animations: {
                     self.progressBar.frame.size.width = progress * width
                 }, completion: { (_) in
-                    if self.progress >= 1 {
+                    if self.progress >= 1 && self.isRemovedOnCompletion {
                         self.removeFromSuperview()
                     }
                 })
             } else {
                 progressBar.frame.size.width = progress * width
-                if progress >= 1 {
+                if progress >= 1 && isRemovedOnCompletion {
                     removeFromSuperview()
                 }
             }
@@ -193,7 +214,7 @@ extension ZJProgressView {
     }
     
     @objc fileprivate func animationDidStop() {
-        if progress >= 1 {
+        if progress >= 1 && isRemovedOnCompletion {
             removeFromSuperview()
         }
     }

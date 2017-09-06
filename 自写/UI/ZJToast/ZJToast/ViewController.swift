@@ -21,7 +21,5 @@ class ViewController: UIViewController {
         let c = string?.components(separatedBy: ";")
         print(c)
     }
-
-
 }
 

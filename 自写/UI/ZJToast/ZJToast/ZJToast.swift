@@ -14,31 +14,34 @@ public enum ZJToastStyle: Int {
     case progress
 }
 
-let ZJToastHorizontalMargin: CGFloat = 18
-let ZJToastVerticalMargin  : CGFloat = 12
-let ZJToastIndicatorScale  : CGFloat = 1.25
-let ZJToastSubviewInteritemPadding_1: CGFloat = 8
-let ZJToastSubviewInteritemPadding_2: CGFloat = 16
-
 open class ZJToast: UIView {
+    
+    static var horizontalMargin: CGFloat = 18
+    static var verticalMargin  : CGFloat = 12
+    static var indicatorScale  : CGFloat = 1.25
+    static var subviewInteritemPadding_1: CGFloat = 8
+    static var subviewInteritemPadding_2: CGFloat = 16
+    
     fileprivate static let initialFrame = CGRect(x: -1.11, y: -1.11, width: 0, height: 0)
     
     fileprivate var style: ZJToastStyle = .textOnly
     fileprivate var shadowView          = UIView()
-    fileprivate var backgroundView      = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    fileprivate var backgroundView      = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     fileprivate var messageLabel        = UILabel()
     fileprivate lazy var progressView: ZJProgressView = {
         let rect = CGRect(x: 0, y: 0, width: 30, height: 30)
-        return ZJProgressView(frame: rect, style: .pie, outlineWidth: 1)
+        let view = ZJProgressView(frame: rect, style: .pie, outlineWidth: 1)
+        view.backgroundMaskColor = .clear
+        view.tintColor = UIColor.red
+        return view
     }()
     fileprivate var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        indicator.transform = CGAffineTransform(scaleX: ZJToastIndicatorScale, y: ZJToastIndicatorScale)
+        indicator.transform = CGAffineTransform(scaleX: ZJToast.indicatorScale, y: ZJToast.indicatorScale)
         return indicator
     }()
     fileprivate var cancelButton: UIButton = {
         let button = UIButton(type: .system)
-        button.tintColor = .white
         button.setImage(UIImage(named: "btn_cancel")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.sizeToFit()
         button.addTarget(self, action: #selector(cancelButtonDidClick), for: .touchUpInside)
@@ -85,6 +88,7 @@ extension ZJToast {
         shadowView.layer.shadowOffset  = CGSize(width: 0.7, height: 0.7)
         shadowView.layer.shadowRadius  = 2
         shadowView.layer.shadowOpacity = 0.6
+        shadowView.backgroundColor     = UIColor.lightGray
         
         shadowView.addSubview(backgroundView)
         backgroundView.layer.cornerRadius  = cornerRadius
@@ -102,6 +106,7 @@ extension ZJToast {
         }
         if needsCancelButton {
             shadowView.addSubview(cancelButton)
+            cancelButton.tintColor = messageLabel.textColor
             shadowView.addSubview(cancelButtonSeparator)
             cancelButtonSeparator.backgroundColor = messageLabel.textColor
         }
@@ -112,23 +117,23 @@ extension ZJToast {
             guard frame != ZJToast.initialFrame else { return }
             let separatorWidth         = 3.5/UIScreen.main.scale
             let separatorHeight        = cancelButton.bounds.height * 1.2
-            var toastNeedsSize         = CGRect(x: 0, y: 0, width: ZJToastHorizontalMargin * 2, height: ZJToastVerticalMargin * 2)
+            var toastNeedsSize         = CGRect(x: 0, y: 0, width: ZJToast.horizontalMargin * 2, height: ZJToast.verticalMargin * 2)
             var maxWidth: CGFloat      = frame.width - 2 * 50
             var contentHeight: CGFloat = 0
             
             if style == .indicator {
-                let indicatorNeedsWidth = indicator.bounds.width * ZJToastIndicatorScale + ZJToastSubviewInteritemPadding_1
+                let indicatorNeedsWidth = indicator.bounds.width * ZJToast.indicatorScale + ZJToast.subviewInteritemPadding_1
                 maxWidth -= indicatorNeedsWidth
                 toastNeedsSize.size.width += indicatorNeedsWidth
                 contentHeight = indicator.bounds.height
             } else if style == .progress {
-                let progressViewNeedsWidth = progressView.bounds.size.width + ZJToastSubviewInteritemPadding_1
+                let progressViewNeedsWidth = progressView.bounds.size.width + ZJToast.subviewInteritemPadding_1
                 maxWidth -= progressViewNeedsWidth
                 toastNeedsSize.size.width += progressViewNeedsWidth
                 contentHeight = progressView.bounds.height
             }
             if needsCancelButton {
-                let cancelButtonNeedsWidth = 2 * ZJToastSubviewInteritemPadding_2 + cancelButton.bounds.size.width + separatorWidth
+                let cancelButtonNeedsWidth = 2 * ZJToast.subviewInteritemPadding_2 + cancelButton.bounds.size.width + separatorWidth
                 maxWidth -= cancelButtonNeedsWidth
                 toastNeedsSize.size.width += cancelButtonNeedsWidth
             }
@@ -144,19 +149,19 @@ extension ZJToast {
             shadowView.layer.shadowPath = UIBezierPath(roundedRect: toastBounds, cornerRadius: cornerRadius).cgPath
             backgroundView.frame = shadowView.bounds
             
-            var layoutX = ZJToastHorizontalMargin
+            var layoutX = ZJToast.horizontalMargin
             if style == .indicator {
-                indicator.frame = CGRect(x: layoutX, y: (toastNeedsSize.height - indicator.bounds.height * ZJToastIndicatorScale)/2, width: indicator.bounds.width, height: indicator.bounds.height)
-                layoutX += ZJToastSubviewInteritemPadding_1 + indicator.bounds.width * ZJToastIndicatorScale
+                indicator.frame = CGRect(x: layoutX, y: (toastNeedsSize.height - indicator.bounds.height * ZJToast.indicatorScale)/2, width: indicator.bounds.width, height: indicator.bounds.height)
+                layoutX += ZJToast.subviewInteritemPadding_1 + indicator.bounds.width * ZJToast.indicatorScale
             } else if style == .progress {
                 progressView.frame = CGRect(x: layoutX, y: (toastNeedsSize.height - progressView.bounds.height)/2, width: progressView.bounds.width, height: progressView.bounds.height)
-                layoutX += ZJToastSubviewInteritemPadding_1 + progressView.bounds.size.width
+                layoutX += ZJToast.subviewInteritemPadding_1 + progressView.bounds.size.width
             }
             messageLabel.frame = CGRect(x: layoutX, y: (toastNeedsSize.height - messageNeedsSize.height)/2, width: messageNeedsSize.width, height: messageNeedsSize.height)
-            layoutX += messageNeedsSize.width + ZJToastSubviewInteritemPadding_2
+            layoutX += messageNeedsSize.width + ZJToast.subviewInteritemPadding_2
             if needsCancelButton {
                 cancelButtonSeparator.frame = CGRect(x: layoutX , y: (toastNeedsSize.height - separatorHeight)/2, width: separatorWidth, height: separatorHeight)
-                cancelButton.frame = CGRect(x: cancelButtonSeparator.frame.maxX + ZJToastSubviewInteritemPadding_2, y: (toastNeedsSize.height - cancelButton.bounds.height)/2, width: cancelButton.bounds.width, height: cancelButton.bounds.height)
+                cancelButton.frame = CGRect(x: cancelButtonSeparator.frame.maxX + ZJToast.subviewInteritemPadding_2, y: (toastNeedsSize.height - cancelButton.bounds.height)/2, width: cancelButton.bounds.width, height: cancelButton.bounds.height)
             }
             
             let tempF = frame
