@@ -1,0 +1,10 @@
+## 执行 pod install 时候，可能会报如下错误： svn: E170001: Can't get username or password
+## 解决错误步骤，执行命令： svn update --username yourname --password yourpassword
+## 上述命令的目的是将svn的用户名密码存储至keychain，同时，顺带更新了本地仓库
+platform :ios, "8.0"
+
+target 'AlamofireDemo' do
+    inhibit_all_warnings!
+    use_frameworks!
+    pod 'Alamofire'
+end

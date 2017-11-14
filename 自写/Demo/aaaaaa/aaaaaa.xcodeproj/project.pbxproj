@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B216D98E1FB992B900714EF7 /* PAEncryptTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216D98D1FB992B900714EF7 /* PAEncryptTool.swift */; };
+		B216D9911FB9932700714EF7 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = B216D9901FB9932700714EF7 /* NSString+Hash.m */; };
 		B21B5AE91E83A0970084A4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B5AE81E83A0970084A4FE /* AppDelegate.swift */; };
 		B21B5AEB1E83A0970084A4FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21B5AEA1E83A0970084A4FE /* ViewController.swift */; };
 		B21B5AEE1E83A0970084A4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21B5AEC1E83A0970084A4FE /* Main.storyboard */; };
@@ -15,6 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B216D9891FB97CD000714EF7 /* aaaaaa-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "aaaaaa-Bridging-Header.h"; sourceTree = "<group>"; };
+		B216D98D1FB992B900714EF7 /* PAEncryptTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PAEncryptTool.swift; sourceTree = "<group>"; };
+		B216D98F1FB9932700714EF7 /* NSString+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
+		B216D9901FB9932700714EF7 /* NSString+Hash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		B21B5AE51E83A0970084A4FE /* aaaaaa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aaaaaa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21B5AE81E83A0970084A4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B21B5AEA1E83A0970084A4FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,10 +62,14 @@
 			children = (
 				B21B5AE81E83A0970084A4FE /* AppDelegate.swift */,
 				B21B5AEA1E83A0970084A4FE /* ViewController.swift */,
+				B216D98D1FB992B900714EF7 /* PAEncryptTool.swift */,
 				B21B5AEC1E83A0970084A4FE /* Main.storyboard */,
 				B21B5AEF1E83A0970084A4FE /* Assets.xcassets */,
 				B21B5AF11E83A0970084A4FE /* LaunchScreen.storyboard */,
 				B21B5AF41E83A0970084A4FE /* Info.plist */,
+				B216D98F1FB9932700714EF7 /* NSString+Hash.h */,
+				B216D9901FB9932700714EF7 /* NSString+Hash.m */,
+				B216D9891FB97CD000714EF7 /* aaaaaa-Bridging-Header.h */,
 			);
 			path = aaaaaa;
 			sourceTree = "<group>";
@@ -96,6 +106,7 @@
 				TargetAttributes = {
 					B21B5AE41E83A0970084A4FE = {
 						CreatedOnToolsVersion = 8.2;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -136,6 +147,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B216D98E1FB992B900714EF7 /* PAEncryptTool.swift in Sources */,
+				B216D9911FB9932700714EF7 /* NSString+Hash.m in Sources */,
 				B21B5AEB1E83A0970084A4FE /* ViewController.swift in Sources */,
 				B21B5AE91E83A0970084A4FE /* AppDelegate.swift in Sources */,
 			);
@@ -258,10 +271,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = aaaaaa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rickluo.aaaaaa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "aaaaaa/aaaaaa-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -270,10 +286,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = aaaaaa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rickluo.aaaaaa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "aaaaaa/aaaaaa-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -297,6 +315,7 @@
 				B21B5AF91E83A0970084A4FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
