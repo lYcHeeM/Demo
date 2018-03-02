@@ -14,6 +14,9 @@
 		B216D97E1FB4599900714EF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B216D97D1FB4599900714EF7 /* Assets.xcassets */; };
 		B216D9811FB4599900714EF7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B216D97F1FB4599900714EF7 /* LaunchScreen.storyboard */; };
 		B216D9951FB99F1000714EF7 /* PAEncryptTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216D9941FB99F1000714EF7 /* PAEncryptTool.swift */; };
+		B2EE4B511FD66E3200D01C4C /* PDFWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EE4B501FD66E3200D01C4C /* PDFWebView.swift */; };
+		B2EE4C0C1FD673A700D01C4C /* aaa.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B2EE4C0B1FD673A600D01C4C /* aaa.pdf */; };
+		B2EE4C0E1FD675C100D01C4C /* minified in Resources */ = {isa = PBXBuildFile; fileRef = B2EE4C0D1FD675C100D01C4C /* minified */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		B216D9881FB459F900714EF7 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		B216D9941FB99F1000714EF7 /* PAEncryptTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PAEncryptTool.swift; path = ../../aaaaaa/aaaaaa/PAEncryptTool.swift; sourceTree = "<group>"; };
 		B216D9961FB99F1D00714EF7 /* AlamofireDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AlamofireDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		B2EE4B501FD66E3200D01C4C /* PDFWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFWebView.swift; sourceTree = "<group>"; };
+		B2EE4C0B1FD673A600D01C4C /* aaa.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = aaa.pdf; sourceTree = "<group>"; };
+		B2EE4C0D1FD675C100D01C4C /* minified */ = {isa = PBXFileReference; lastKnownFileType = folder; name = minified; path = PDFJS/minified; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +89,12 @@
 		B216D9751FB4599900714EF7 /* AlamofireDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B2EE4C0D1FD675C100D01C4C /* minified */,
 				B216D9761FB4599900714EF7 /* AppDelegate.swift */,
 				B216D9781FB4599900714EF7 /* ViewController.swift */,
+				B2EE4B501FD66E3200D01C4C /* PDFWebView.swift */,
 				B216D9941FB99F1000714EF7 /* PAEncryptTool.swift */,
+				B2EE4C0B1FD673A600D01C4C /* aaa.pdf */,
 				B216D97A1FB4599900714EF7 /* Main.storyboard */,
 				B216D97D1FB4599900714EF7 /* Assets.xcassets */,
 				B216D97F1FB4599900714EF7 /* LaunchScreen.storyboard */,
@@ -160,6 +169,8 @@
 			files = (
 				B216D9811FB4599900714EF7 /* LaunchScreen.storyboard in Resources */,
 				B216D97E1FB4599900714EF7 /* Assets.xcassets in Resources */,
+				B2EE4C0E1FD675C100D01C4C /* minified in Resources */,
+				B2EE4C0C1FD673A700D01C4C /* aaa.pdf in Resources */,
 				B216D97C1FB4599900714EF7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,6 +232,7 @@
 			files = (
 				B216D9951FB99F1000714EF7 /* PAEncryptTool.swift in Sources */,
 				B216D9791FB4599900714EF7 /* ViewController.swift in Sources */,
+				B2EE4B511FD66E3200D01C4C /* PDFWebView.swift in Sources */,
 				B216D9771FB4599900714EF7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

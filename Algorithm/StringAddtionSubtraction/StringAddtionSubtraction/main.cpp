@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include "StringAddition.hpp"
 
 // 任务：打印从1到n位数的最大值
 
@@ -55,7 +56,7 @@ bool should_increment_number_in_string(char *numbers_string)
     return isOverflow;
 }
 
-void print_number_in_string(char *numbers_string)
+void print_number_in_string(const char *numbers_string)
 {
     if (numbers_string == NULL) {
         return;
@@ -92,7 +93,7 @@ void print_number_from_1_to_max(size_t placeAmountOfNumber)
 }
 
 #pragma mark - 方法2 排列组合
-void print_number___(char *numbers_string, size_t length, size_t index)
+void print_number___(/* inout */char *numbers_string, size_t length, size_t index)
 {
     if (length == 0) {
         return;
@@ -132,8 +133,9 @@ void print_number_from_1_to_max_recursively(size_t placeAmountOfNumber)
 int main(int argc, const char * argv[]) {
     
 //    print_number_from_1_to_max(3);
-    print_number_from_1_to_max_recursively(2);
+//    print_number_from_1_to_max_recursively(2);
     
+    print_number_in_string(string_addition("2222", "9999"));
     std::cout << "Hello, World!\n";
     return 0;
 }

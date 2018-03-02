@@ -8,9 +8,12 @@
 
 import UIKit
 import Alamofire
+import QuickLook
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, QLPreviewControllerDataSource, UIDocumentInteractionControllerDelegate {
 
+    var localPdfPath: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        request("https://httpbin.org/post").response { (response) in
@@ -23,6 +26,51 @@ class ViewController: UIViewController {
 //            print(JSON)
 //        }
         
+        download("https://imagetest.pawjzs.com/elecsignature/3/3e35dbe8-d2c2-447b-8aa6-0adf845ba522/rBIyX1omUZyIKZbeAALzShsDrnYAAACyQBIxjQAAvNi384.pdf") { (url, response) -> (destinationURL: URL, options: DownloadRequest.DownloadOptions) in
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! + "/aaa.pdf"
+            let url = URL(fileURLWithPath: path)
+            return (url, [.createIntermediateDirectories, .removePreviousFile])
+        }.response { (response) in
+            guard let path = response.destinationURL?.path else { return }
+            print(path)
+            
+            // how to display pdf file with signature
+//            #1
+//            let qlVc = QLPreviewController()
+//            self.localPdfPath = path
+//            qlVc.dataSource = self
+//            self.present(qlVc, animated: true, completion: nil)
+            
+//            #2
+//            let vc = UIDocumentInteractionController(url: response.destinationURL!)
+//            vc.delegate = self
+//            vc.presentPreview(animated: true)
+            
+//            #3
+//            UIApplication.shared.open(URL(string: "http://fs01stg.pinganwj.com:81/group1/M00/00/04/rBIyX1olOGOIRalPAALwYmQZ9g0AAACyAPfTj0AAvB6833.pdf")!, completionHandler: nil)
+            
+//            #4 the only way to display signatures on pdf file of these 4 methods
+            let pdfJsWebView = PDFWebView()
+            self.view.addSubview(pdfJsWebView)
+            pdfJsWebView.frame = self.view.bounds
+            pdfJsWebView.loadPDF(with: path)
+        }
+    }
+    
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
+    }
+    
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        return 1
+    }
+    
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        controller.navigationItem.rightBarButtonItem = nil
+        return NSURL(fileURLWithPath: localPdfPath)
+    }
+    
+    func jwtTokenDemo() {
         let jwtHeader = "{\"alg\":\"HS512\"}"
         
         let date = Date()

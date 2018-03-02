@@ -15,5 +15,5 @@
 
 void merge_sort(int *data, size_t length);
 void merge_two_sorted_arrays(int *array_1, size_t length_1, int *array_2, size_t length_2);
-
+int merge_sort_recursively(int *sequence, size_t length, bool (*is_left_smaller)(int, int));
 #endif /* MergeSort_hpp */
