@@ -14,7 +14,7 @@ typedef void (^ZJObserverNotification)(NSObject * observedObj, NSString *keyPath
 @interface NSObject (KVO)
 
 - (void)zj_addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath changed:(ZJObserverNotification)notification;
-- (void)zj_removeObserve:(NSObject *)observer forKeyPath:(NSString *)keyPath;
+- (void)zj_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;
 
 @end
 NS_ASSUME_NONNULL_END

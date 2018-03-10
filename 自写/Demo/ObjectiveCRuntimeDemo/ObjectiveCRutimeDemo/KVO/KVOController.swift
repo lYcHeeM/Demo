@@ -24,9 +24,11 @@ class KVOController: UIViewController {
         textField.zj_addObserver(self, forKeyPath: "text") { (observer, keyPath, oldValue, newValue) in
             print("oldValue: \(oldValue), newValue: \(newValue)")
         }
+        print(textField.classForCoder)
+        print(textField.superclass!)
     }
     
     @IBAction func cancelObservation(_ sender: Any) {
-        textField.zj_removeObserve(self, forKeyPath: "text")
+        textField.zj_removeObserver(self, forKeyPath: "text")
     }
 }

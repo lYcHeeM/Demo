@@ -14,12 +14,16 @@
 
 @implementation OtherTarget
 - (void)action {
-    NSLog(@"++++++");
+    NSLog(@"+++OtherTarget: action+++");
 }
 
 @end
 
 @implementation MessageForwarding
+
+- (void)handleUnrecongnizedSelector:(SEL)selector {
+    NSLog(@"warning: unrecognized selector --> \"%@\"", NSStringFromSelector(selector));
+}
 
 /**
  *  消息转发 Method Forwarding
@@ -36,23 +40,31 @@
  */
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
-    NSLog(@"-----");
+    NSLog(@"---forwardInvocation begin---");
     id target = [anInvocation target];
     if (![target respondsToSelector:[anInvocation selector]]) {
-        target = [OtherTarget new];
+        // 1.应用1, 转给其他对象响应
+//        target = [OtherTarget new];
+        // 2.应用2, 如果当前对象无法响应当前消息, 则转为响应一个默认的消息, 比如提示未实现此方法.
+        // (需先注释应用1代码)
+        [self handleUnrecongnizedSelector:[anInvocation selector]];
     }
     if ([target respondsToSelector:[anInvocation selector]]) {
         [anInvocation invokeWithTarget:target];
     }
+    NSLog(@"---forwardInvocation end---");
 }
 
-- (id)forwardingTargetForSelector:(SEL)aSelector {
-    return [OtherTarget new];
-}
+/// 实践发现, 此方法不需实现
+//- (id)forwardingTargetForSelector:(SEL)aSelector {
+//    return [OtherTarget new];
+//}
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-    NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:"v@:"];
-    return signature;
+    if ([NSStringFromSelector(aSelector) isEqualToString:@"action"]) {
+        return [NSMethodSignature signatureWithObjCTypes:"v@:"];
+    }
+    return [super methodSignatureForSelector:aSelector];
 }
 
 @end

@@ -64,8 +64,11 @@ static NSString *getterForSetter(NSString *setter) {
     return key;
 }
 
+/// 返回临时类的类名, 为了对调用者透明, 此处返回原始对象的类名
 static Class zjKVO_class(id self, SEL _cmd) {
-    // 注意到self的isa此时已经指向了临时类, 而临时类继承自原来的self, 所以此处需要getSuperclass
+    // 注意到, 此函数在当前category不会被调用, 真正被调用的时候是外界获取当前对象的类名,
+    // 故进入到此函数时, self的isa已经指向了临时类,
+    // 而临时类继承自原来的self, 所以此处需要getSuperclass
     return class_getSuperclass(object_getClass(self));
 }
 
@@ -80,9 +83,17 @@ static Class zjKVO_class(id self, SEL _cmd) {
     
     // 运行时生成新类, 并令其继承于self(被监听的类)
     Class originalClass = object_getClass(self);
+    // 已当前类作为父类生成一个中间类
     Class kvoClass = objc_allocateClassPair(originalClass, kvoClassName.UTF8String, 0);
     
-    // 重写[object class]方法, 使得kvo对使用者来说透明化
+    // 重写[objc_object class]方法, 使得kvo对使用者来说透明化;
+    // 无须重写objc_class的实例方法(即所谓的类方法)[objc_class class], 因为外界并不能用
+    // ZJKVOClassPrefix_xxx来执行形如[ZJKVOClassPrefix_xxx class]的代码, 外界只能
+    // 用实例对象来获取类名, 诸如[object class], 即使执行[[object class] class],
+    // 也是无妨的, 因为第一对中括号消息返回的已经是原始类名了, 用原始类的class方法一定会返回原始类名,
+    // 所以此处重写类的实例方法即可; 而且实践发现, 重写了[object class]方法后, [object superclass]也
+    // 能得到原始类的父类, 而不是临时类的父类(注意零时类的父类就是原始类), 估计寻找父类的过程应是
+    // [[object class] superclass].
     Method classMethod = class_getInstanceMethod(originalClass, @selector(class));
     const char *typeEcoding = method_getTypeEncoding(classMethod);
     class_addMethod(kvoClass, @selector(class), (IMP)zjKVO_class, typeEcoding);
@@ -148,6 +159,17 @@ static void kvo_setter(id self, SEL _cmd, id newValue) {
 
 #pragma mark -
 
+/// 原理: Objc Runtime系统的综合应用
+/// 1. 假设被观察的对象为a, 须生成一个临时类B, B继承自对象a的类A, 即为B->A;
+/// 2. 之后改写对象a的isa指针, 使它指向B, 同时为了不破坏原始的继承链, 须重写
+/// 临时类B的class方法, 使它返回原始类的Class对象, 而且, 此时对a调用superclass也能
+/// 正确得到原始类的父类, 因为Objc Runtime查找父类的过程是这样发消息的
+/// [[object class] superclass];
+/// 3. 之后重写临时类的setter方法, 由于临时类B是A的子类, 所以重写过程中, 需要调用父类A的
+/// setter方法, 并在重写的setter方法的末尾通知当前对象的所有观察者, 把oldValue、newValue
+/// 通过回调发给观察者;
+/// 4. 通过AssociatedObjects方式, 维护一个集合, 里面引用所有观察者, 所以观察者有责任在
+/// 适宜的时机移除观察(removeObserver方法).
 - (void)zj_addObserver:(NSObject *)observer forKeyPath:(NSString *)key changed:(ZJObserverNotification)notification {
     // 获取setter指针
     SEL setterSelector = NSSelectorFromString(setterForKey(key));
@@ -165,6 +187,7 @@ static void kvo_setter(id self, SEL _cmd, id newValue) {
     // 如果没有正在被监听, 则生成临时类, 并把当前类的isa指向这个临时类
     if (![selfClassName hasPrefix:ZJKVOClassPrefix]) {
         selfClass = [self kvoClassForOriginalClass:selfClassName];
+        // 改写isa指针
         object_setClass(self, selfClass);
     }
     
@@ -184,7 +207,7 @@ static void kvo_setter(id self, SEL _cmd, id newValue) {
     [observers addObject:observerInfo];
 }
 
-- (void)zj_removeObserve:(NSObject *)observer forKeyPath:(NSString *)keyPath {
+- (void)zj_removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath {
     NSMutableArray *observers = objc_getAssociatedObject(self, ZJKVOAssociatedObserversKey);
     ZJObserverInfo *removingObserverInfo = nil;
     for (ZJObserverInfo *observerInfo in observers) {
