@@ -7,6 +7,7 @@
 //
 
 #include "common.hpp"
+#include <string.h>
 
 void print_int_array(int *array, size_t length) {
     if (array == NULL || length == 0) {
@@ -18,3 +19,27 @@ void print_int_array(int *array, size_t length) {
     }
     printf("\n");
 }
+
+const char * file_name() {
+    size_t len = strlen(__FILE__);
+    int i = (int)(len - 1);
+    // 获取最后一个斜杆的位置
+    for (; i >= 0; --i)
+        if (__FILE__[i] == '/') break;
+    size_t file_name_len = len - 1 - i;
+    char *temp = (char *)malloc((file_name_len + 1) * sizeof(char));
+    if (!temp) return NULL;
+    strcpy(temp, &(__FILE__[i+1]));
+    temp[file_name_len] = '\0';
+    return temp;
+}
+
+//static inline void debug_log_1(const char * __restrict, ...) {
+//    size_t len = strlen(__FILE__);
+//    int i = (int)(len - 1);
+//    for (; i >= 0; --i)
+//        if (__FILE__[i] == '/') break;
+//    size_t file_name_len = len - 1 - i;
+//    printf(">>[%s]--[line:%ld]:\n",  &(__FILE__[i+1]), __LINE__);
+//}
+

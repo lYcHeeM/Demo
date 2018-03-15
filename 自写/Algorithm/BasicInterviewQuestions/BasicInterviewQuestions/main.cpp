@@ -173,6 +173,7 @@ int main(int argc, const char * argv[]) {
 //    printf("error code: %d\n", error_code);
 //    printf("number: %d\n", number);
     
+    debug_log("%d\n", 10);
     return 0;
 }
 
