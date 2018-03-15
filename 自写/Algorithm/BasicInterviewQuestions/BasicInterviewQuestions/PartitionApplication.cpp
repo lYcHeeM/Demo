@@ -160,5 +160,21 @@ int the_Kth_large_element_in(int *array, size_t length, size_t K, int *result) {
     return 0;
 }
 
-
+void test_the_Kth_large_algorithm() {
+    for (int i = 0; i < 99999; ++ i) {
+        int data[] = {4,5,6,7,8,9,10,11,0,1,2};
+        int result = -1;
+        size_t length = sizeof(data)/sizeof(int);
+        int ret = the_Kth_large_element_in(data, length, 6, &result);
+        print_int_array(data, length);
+        printf("return state = %d\n", ret);
+        printf("result = %d\n", result);
+        printf("==========================\n");
+        printf("i = %d\n", i);
+        assert(result == 6);
+        usleep(10000);
+    }
+    
+    printf("test_the_Kth_large_algorithm succeed🎉!\n");
+}
 

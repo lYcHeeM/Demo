@@ -10,6 +10,7 @@
 #define PartitionApplication_hpp
 
 #include <stdio.h>
+#include "common.hpp"
 
 // partition函数的应用
 
@@ -29,5 +30,8 @@ void swap_two_values(int *left, int *right);
 /// 算法复杂度: O(n) + O(n/2) + O(n/4) + ... + O(n/2^log<2>n) (注意这是一个等比数列)
 /// = O((n - 1*(1/2))/(1-(1/2))) = O(2n - 1) ——> O(n)
 int the_Kth_large_element_in(int *array, size_t length, size_t K, int *result);
+
+/// 较为严格的测试函数
+void test_the_Kth_large_algorithm();
 
 #endif /* PartitionApplication_hpp */

@@ -404,6 +404,7 @@ int binary_search_tree_insert(BTNodePt *tree, int value) {
 #endif
     
     BTNodePt position = NULL;
+    // 先查找到合适的插入位置，若没有找到，则插入节点，否则应提示用户当前插入的元素已存在
     if (!binary_search_tree_search(*tree, value, &position)) {
         BTNodePt node = binary_tree_node_create(value);
         if (!node) return -1;

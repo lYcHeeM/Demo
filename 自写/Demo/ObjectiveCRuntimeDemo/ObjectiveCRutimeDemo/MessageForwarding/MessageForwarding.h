@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface MessageForwarding : NSObject
 
 - (void)action;
 
 @end
+

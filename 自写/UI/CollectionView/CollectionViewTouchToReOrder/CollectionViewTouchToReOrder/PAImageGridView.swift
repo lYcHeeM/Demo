@@ -60,16 +60,19 @@ class PAImageGridView: UIView, UINavigationControllerDelegate, UIImagePickerCont
     var needsImgInfoLabel = false
     
     fileprivate var gridCollectionView: UICollectionView!
-    var dataSource = [PACompoundImage]() {
-        didSet {
-            gridCollectionView.reloadData()
-        }
-    }
+    var dataSourceDidRemoveAt: ((Int) -> (Swift.Void))?
+    var dataSourceDidInsertAfterRemove: ((Int, Int) -> (Swift.Void))?
+    var dataSource = [PACompoundImage]()
+    func reloadData() { gridCollectionView.reloadData() }
     
     private var longPressedCell: PAImageGridCell!
     private var copyedLongPressedCell: PAImageGridCell!
+    private var deletingHintView: UIView!
+    private var deletingHintViewBgColor: UIColor = UIColor(red: 83/255.0, green: 83/255.0, blue: 83/255.0, alpha: 1.0)
     private var longPressedCellOriginalFrame: CGRect = .zero
     private var indexPathOfLongPressedCell: IndexPath!
+    private var timer: Timer?
+    private var isLastContentOffsetChangingFinished = true
     private var isLastItemMovingFinished = true
     
     var itemClicked            : ((PAImageGridView, IndexPath, [PAImageGridCell]) -> Swift.Void)?
@@ -160,9 +163,15 @@ class PAImageGridView: UIView, UINavigationControllerDelegate, UIImagePickerCont
         dataSource.append(image)
     }
     
+    // TODO: 避免每次删除都reloadData
     func remove(imageAt indexPath: IndexPath) {
-        gridCollectionView.deselectItem(at: indexPath, animated: true)
-        dataSource.remove(at: indexPath.item)
+        gridCollectionView.performBatchUpdates({
+            dataSource.remove(at: indexPath.item)
+            dataSourceDidRemoveAt?(indexPath.item)
+            gridCollectionView.deleteItems(at: [indexPath])
+        }, completion: { (_) in
+            self.gridCollectionView.reloadData()
+        })
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -188,6 +197,7 @@ class PAImageGridView: UIView, UINavigationControllerDelegate, UIImagePickerCont
             // 拷贝一个cell，用于显示到窗口
             copyedLongPressedCell = PAImageGridCell(frame: longPressedCell.frame)
             copyedLongPressedCell.supposedItemSize = longPressedCell.bounds.size
+            copyedLongPressedCell.needsCloseButton = false
             copyedLongPressedCell.imageModel = longPressedCell.imageModel
             
             // 隐藏当前cell，注意到cell重用机制，需要用数据控制
@@ -203,36 +213,57 @@ class PAImageGridView: UIView, UINavigationControllerDelegate, UIImagePickerCont
             keyWindow.addSubview(copyedLongPressedCell)
             copyedLongPressedCell.frame = newFrame
             
+            setupDeletingHintView(inSuperview: keyWindow)
+            deletingHintView.transform = CGAffineTransform(translationX: 0, y: deletingHintView.bounds.height)
+            deletingHintView.alpha = 0.3
+            
             // 动画显示拷贝的view：中心位置移动到触摸处；加透明度和阴影；稍微放大。
             let pointInWindow = gridCollectionView.convert(point, to: keyWindow)
             UIView.animate(withDuration: 0.25, animations: {
                 self.copyedLongPressedCell.center = pointInWindow
                 
-                self.copyedLongPressedCell.alpha = 0.7
+                self.copyedLongPressedCell.alpha = 0.75
                 self.copyedLongPressedCell.layer.shadowOffset = CGSize(width: 0.25, height: 0.25)
                 self.copyedLongPressedCell.layer.shadowColor = UIColor.black.cgColor
-                self.copyedLongPressedCell.layer.shadowOpacity = 0.6
+                self.copyedLongPressedCell.layer.shadowOpacity = 0.9
                 self.copyedLongPressedCell.layer.shadowRadius = 2
                 self.copyedLongPressedCell.layer.shadowPath = UIBezierPath(rect: longPressedCell.bounds).cgPath
                 
                 self.copyedLongPressedCell.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                
+                self.deletingHintView.transform = .identity
+                self.deletingHintView.alpha = 1
             })
+            
+            
         case .changed:
+            guard copyedLongPressedCell != nil else { return }
             copyedLongPressedCell.center = gridCollectionView.convert(point, to: keyWindow)
             
-            // 当拖动拷贝的cell快要达到collectionView边界时，尝试上下滚动collectionView
-            var targetContentOffsetY: CGFloat = -1
-            let stepLength: CGFloat = 30
-            let value = gridCollectionView.contentSize.height - gridCollectionView.bounds.height
-            if point.y - gridCollectionView.contentOffset.y + copyedLongPressedCell.frame.height/2 >= gridCollectionView.bounds.height, value > 0, gridCollectionView.contentOffset.y < value {
-                targetContentOffsetY = gridCollectionView.contentOffset.y + stepLength
-                if targetContentOffsetY > value { targetContentOffsetY = value }
-            } else if point.y - copyedLongPressedCell.frame.height/2 <= gridCollectionView.contentOffset.y, value > 0, gridCollectionView.contentOffset.y > 0 {
-                targetContentOffsetY = gridCollectionView.contentOffset.y - stepLength
-                if targetContentOffsetY < 0 { targetContentOffsetY = 0 }
-            }
-            if targetContentOffsetY != -1 {
-                gridCollectionView.setContentOffset(CGPoint.init(x: gridCollectionView.contentOffset.x, y: targetContentOffsetY), animated: true)
+            // 为了使动画流畅，用定时器限制setContentOffset的频率,
+            // setContentOffset在有动画的时候大概0.2秒完成
+            if isLastContentOffsetChangingFinished {
+                // 当拖动拷贝的cell快要达到collectionView边界时，尝试上下滚动collectionView
+                var targetContentOffsetY: CGFloat = -1
+                let stepLength: CGFloat = copyedLongPressedCell.bounds.height/1.5
+                let value = gridCollectionView.contentSize.height - gridCollectionView.bounds.height
+                if point.y - gridCollectionView.contentOffset.y + copyedLongPressedCell.frame.height/2 >= gridCollectionView.bounds.height, value > 0, gridCollectionView.contentOffset.y < value {
+                    targetContentOffsetY = gridCollectionView.contentOffset.y + stepLength
+                    if targetContentOffsetY > value { targetContentOffsetY = value }
+                } else if point.y - copyedLongPressedCell.frame.height/2 <= gridCollectionView.contentOffset.y, value > 0, gridCollectionView.contentOffset.y > 0 {
+                    targetContentOffsetY = gridCollectionView.contentOffset.y - stepLength
+                    if targetContentOffsetY < 0 { targetContentOffsetY = 0 }
+                }
+                if targetContentOffsetY != -1 {
+                    isLastContentOffsetChangingFinished = false
+                    gridCollectionView.setContentOffset(CGPoint.init(x: gridCollectionView.contentOffset.x, y: targetContentOffsetY), animated: true)
+                    // 实践发现，这个定时器不需要加到runloop的commonModes中，可能因为触发定时器的时间已经滚动完成了，切换回了defaultMode
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                        self.isLastContentOffsetChangingFinished = true
+                    })
+//                    timer = Timer.init(timeInterval: 0.25, target: self, selector: #selector(timerCall), userInfo: nil, repeats: false)
+//                    RunLoop.main.add(timer!, forMode: .commonModes)
+                }
             }
             
             for cell in gridCollectionView.visibleCells {
@@ -246,33 +277,34 @@ class PAImageGridView: UIView, UINavigationControllerDelegate, UIImagePickerCont
                 let distanceBetweenTwoCells = sqrt(pow(spaceX, 2) + pow(spaceY, 2))
                 if distanceBetweenTwoCells < cell.frame.width/2, isLastItemMovingFinished {
                     // 版本1 不可行，因为并不是简单的交换元素操作
-//                    dataSource.exchange(elementAt: self.indexPathOfLongPressedCell.row, withElementAt: indexPath.row)
+//                    dataSource.exchange(elementAt: self.indexPathOfLongPressedCell.row, withElementAt: indexPath.item)
                     // 版本2 可行
 //                    let model = dataSource[indexPathOfLongPressedCell.row]
-//                    if indexPath.row > indexPathOfLongPressedCell.row {
-//                        for index in indexPathOfLongPressedCell.row..<indexPath.row {
+//                    if indexPath.item > indexPathOfLongPressedCell.row {
+//                        for index in indexPathOfLongPressedCell.row..<indexPath.item {
 //                            dataSource[index] = dataSource[index + 1]
 //                        }
 //                    } else {
 //                        var index = indexPathOfLongPressedCell.row
-//                        for _ in indexPath.row..<indexPathOfLongPressedCell.row {
+//                        for _ in indexPath.item..<indexPathOfLongPressedCell.row {
 //                            dataSource[index] = dataSource[index - 1]
 //                            index -= 1
 //                        }
 //                    }
-//                    dataSource.replace(elementAt: indexPath.row, with: model)
+//                    dataSource.replace(elementAt: indexPath.item, with: model)
                     
                     // 版本3 最简洁
 //                    let model = dataSource.remove(at: indexPathOfLongPressedCell.row)
-//                    dataSource.insert(model, at: indexPath.row)
+//                    dataSource.insert(model, at: indexPath.item)
                     
                     // 为了防止在上次moveItem的动画未完成前再次触发moveItem动画，
                     // 否则，实践发现会出现动画错乱
                     isLastItemMovingFinished = false
                     gridCollectionView.performBatchUpdates({
                         // 版本3 最简洁，注意到remove一个元素后，后面元素的填补操作API内部已经做了
-                        let model = dataSource.remove(at: indexPathOfLongPressedCell.row)
-                        dataSource.insert(model, at: indexPath.row)
+                        let model = dataSource.remove(at: indexPathOfLongPressedCell.item)
+                        dataSource.insert(model, at: indexPath.item)
+                        dataSourceDidInsertAfterRemove?(indexPathOfLongPressedCell.item, indexPath.item)
                         
                         // moveItem函数会触发数据源方法，所以一定要先修改数据源
                         gridCollectionView.moveItem(at: indexPathOfLongPressedCell, to: indexPath)
@@ -286,30 +318,102 @@ class PAImageGridView: UIView, UINavigationControllerDelegate, UIImagePickerCont
                     indexPathOfLongPressedCell = indexPath
                 }
             }
+            guard deletingHintView != nil else { return }
+            if deletingHintView.frame.intersects(copyedLongPressedCell.frame) {
+                deletingHintView.backgroundColor = deletingHintView.backgroundColor?.withAlphaComponent(0.7)
+            } else {
+                deletingHintView.backgroundColor = deletingHintViewBgColor
+            }
         case .ended:
+            guard indexPathOfLongPressedCell != nil else { return }
             // 结束动画期间，为安全起见，把collectionView设为不可接受事件
             gridCollectionView.isUserInteractionEnabled = false
             // 获取当前手势钉住的拷贝的cell所对应的collectionView上的cell，即被隐藏的cell。
             guard let cell = gridCollectionView.cellForItem(at: indexPathOfLongPressedCell) as? PAImageGridCell else { return }
+            guard deletingHintView != nil else { return }
+            let shouldDelete = deletingHintView.frame.intersects(copyedLongPressedCell.frame)
+            
             // 把这个cell的中心位置映射到窗口，用动画把显示在窗口上的cell回到这个中心位置；
             // 动画结束后移除这个cell，并恢复显示被隐藏的cell。
             let center = gridCollectionView.convert(cell.center, to: keyWindow)
             UIView.animate(withDuration: 0.25, animations: {
-                self.copyedLongPressedCell.center = center
-                self.copyedLongPressedCell.transform = .identity
-                self.copyedLongPressedCell.alpha = 1
+                if !shouldDelete {
+                    self.copyedLongPressedCell.center = center
+                    self.copyedLongPressedCell.transform = .identity
+                    self.copyedLongPressedCell.alpha = 1
+                    self.deletingHintView.alpha = 0.3
+                    self.deletingHintView.transform = CGAffineTransform(translationX: 0, y: self.deletingHintView.bounds.height)
+                }
             }, completion: { (_) in
-                self.copyedLongPressedCell.removeFromSuperview()
-                cell.imageModel?.isHidden = false
-                cell.isHidden = false
-                self.gridCollectionView.isUserInteractionEnabled = true
-                // 清除数据
-                self.indexPathOfLongPressedCell = nil
-                self.copyedLongPressedCell = nil
+                if !shouldDelete {
+                    self.gridCollectionView.isUserInteractionEnabled = true
+                    self.copyedLongPressedCell.removeFromSuperview()
+                    cell.imageModel?.isHidden = false
+                    cell.isHidden = false
+                    
+                    self.deletingHintView.removeFromSuperview()
+                    self.deletingHintView.alpha = 1
+                    self.deletingHintView.transform = .identity
+                    self.deletingHintView.backgroundColor = self.deletingHintViewBgColor
+                    
+                    // 清除数据
+                    self.indexPathOfLongPressedCell = nil
+                    self.copyedLongPressedCell = nil
+                } else {
+                    self.gridCollectionView.performBatchUpdates({
+                        self.dataSource.remove(at: self.indexPathOfLongPressedCell.item)
+                        self.dataSourceDidRemoveAt?(self.indexPathOfLongPressedCell.item)
+                        self.gridCollectionView.deleteItems(at: [self.indexPathOfLongPressedCell])
+                        UIView.animate(withDuration: 0.25, animations: {
+                            self.deletingHintView.alpha = 0.3
+                            self.deletingHintView.transform = CGAffineTransform(translationX: 0, y: self.deletingHintView.bounds.height)
+                            self.copyedLongPressedCell.alpha = 0.1
+                            self.copyedLongPressedCell.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
+                        }, completion: { (_) in
+                            self.copyedLongPressedCell.removeFromSuperview()
+                            self.deletingHintView.removeFromSuperview()
+                            self.deletingHintView.alpha = 1
+                            self.deletingHintView.transform = .identity
+                            self.deletingHintView.backgroundColor = self.deletingHintViewBgColor
+                            // 清除数据
+                            self.indexPathOfLongPressedCell = nil
+                            self.copyedLongPressedCell = nil
+                        })
+                    }, completion: { (_) in
+                        self.gridCollectionView.reloadData()
+                        self.gridCollectionView.isUserInteractionEnabled = true
+                    })
+                }
             })
         default:
             return
         }
+    }
+    
+    private func setupDeletingHintView(inSuperview superview: UIView) {
+        let deletingHintViewHeight: CGFloat = 60
+        if deletingHintView == nil {
+            deletingHintView = UIView()
+            superview.addSubview(self.deletingHintView)
+            deletingHintView.frame = CGRect.init(x: 0, y: UIScreen.main.bounds.height - deletingHintViewHeight, width: UIScreen.main.bounds.width, height: deletingHintViewHeight)
+            deletingHintView.backgroundColor = deletingHintViewBgColor
+            let label = UILabel()
+            label.font = UIFont.boldSystemFont(ofSize: 16)
+            label.textColor = UIColor.init(white: 1, alpha: 0.85)
+            label.text = "拖动到此处删除"
+            deletingHintView.addSubview(label)
+            let needsSize = label.sizeThatFits(CGSize.init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+            label.frame.size = needsSize
+            label.frame.origin = CGPoint.init(x: (deletingHintView.bounds.width - needsSize.width)/2, y: (deletingHintView.bounds.height - needsSize.height)/2)
+        } else {
+            superview.addSubview(deletingHintView)
+        }
+    }
+    
+    @objc private func timerCall() {
+        isLastItemMovingFinished = true
+        timer?.invalidate()
+        timer = nil
     }
 }
 
@@ -323,15 +427,16 @@ extension PAImageGridView : UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row < dataSource.count {
+        if indexPath.item < dataSource.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PAImageGridCell.reuseIdentifier, for: indexPath) as! PAImageGridCell
             let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
             cell.needsCloseButton = needsCloseButton
             cell.needsInfoLabel = needsImgInfoLabel
             cell.supposedItemSize = flowLayout.itemSize
             cell.imageCornerRadius = gridCornerRadius
+            cell.indexPath = indexPath
             cell.imageModel = dataSource[indexPath.item]
-            cell.imageViewDidClick = { [weak self] _ in
+            cell.imageViewDidClick = { [weak self] __cell in
                 guard self != nil else { return }
                 var visibleCells = [PAImageGridCell]()
                 for cell in self!.gridCollectionView.visibleCells {
@@ -346,11 +451,11 @@ extension PAImageGridView : UICollectionViewDataSource, UICollectionViewDelegate
                         return true
                     }
                 })
-                self?.itemClicked?(self!, indexPath, visibleCells)
+                self?.itemClicked?(self!, __cell.indexPath!, visibleCells)
             }
-            cell.closeButtonDidClick = { [weak self] _ in
+            cell.closeButtonDidClick = { [weak self] __cell in
                 guard self != nil else { return }
-                self?.itemDeleteButtonClicked?(self!, indexPath)
+                self?.itemDeleteButtonClicked?(self!, __cell.indexPath!)
             }
             return cell
         } else {
@@ -365,24 +470,12 @@ extension PAImageGridView : UICollectionViewDataSource, UICollectionViewDelegate
     }
     
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if indexPath.row < dataSource.count {
+//        if indexPath.item < dataSource.count {
 //            itemClicked?(self, indexPath)
 //        } else {
 //
 //        }
 //    }
-    
-    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        if indexPath.row < dataSource.count {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        dataSource.exchange(elementAt: sourceIndexPath.item, withElementAt: destinationIndexPath.item)
-    }
 }
 
 class PAImageGridCell: UICollectionViewCell {
@@ -409,6 +502,7 @@ class PAImageGridCell: UICollectionViewCell {
     
     var supposedItemSize : CGSize = .zero
     var imageCornerRadius: CGFloat = 2.0
+    var indexPath: IndexPath?
     
     var imageModel: PACompoundImage? {
         didSet {

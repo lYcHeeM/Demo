@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         let gridViewX                 = padding_15 - gridViewDefaultFlowLayout.minimumInteritemSpacing
         let gridViewWidth             = view.frame.width - 2 * gridViewX
         gridViewDefaultFlowLayout     = PAImageGridView.defaultLayout(fittingWidth: gridViewWidth).flow
+        gridViewDefaultFlowLayout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         return gridViewDefaultFlowLayout
     }
     var selectedFullScreenImages = [UIImage]()
@@ -28,6 +29,7 @@ class ViewController: UIViewController {
                 imagesModels.append(compoundImage)
             }
             imageGridView.dataSource = imagesModels
+            imageGridView.reloadData()
         }
     }
     
@@ -37,15 +39,30 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.init(white: 0.9, alpha: 1)
         
+        let hintLabel = UILabel()
+        view.addSubview(hintLabel)
+        hintLabel.text = "工作台模型👇👇👇"
+        hintLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        let needsSize = hintLabel.sizeThatFits(CGSize.init(width: 10000, height: 10000))
+        hintLabel.frame = CGRect.init(x: (view.frame.width - needsSize.width)/2, y: 140, width: needsSize.width, height: needsSize.height)
+        
         let padding_15:CGFloat = 15
         let gridViewX       = padding_15 - PAImageGridView.defaultLayout().flow.minimumInteritemSpacing
         let gridViewWidth   = view.frame.width - 2 * gridViewX
         
         imageGridView = PAImageGridView(flowLayout: gridViewLayout, dataSource: [], style: .picker)
         view.addSubview(imageGridView)
+        imageGridView.frame = CGRect(x: gridViewX, y: 200, width: gridViewWidth, height: gridViewLayout.itemSize.height * 4)
+        
         imageGridView.backgroundColor = UIColor.white
-        imageGridView.frame = CGRect(x: gridViewX, y: 200, width: gridViewWidth, height: gridViewLayout.itemSize.height * 3)
-        imageGridView.numberOfImagesAllowed = 40
+        imageGridView.layer.shadowOffset = CGSize(width: 0.25, height: 0.25)
+        imageGridView.layer.shadowColor = UIColor.black.cgColor
+        imageGridView.layer.shadowOpacity = 0.6
+        imageGridView.layer.shadowRadius = 2
+        imageGridView.layer.shadowPath = UIBezierPath(rect: imageGridView.bounds).cgPath
+        
+        imageGridView.gridCornerRadius = 0
+        imageGridView.numberOfImagesAllowed = 99
         imageGridView.alertControllerPresentedController = self
         imageGridView.itemClicked = { [weak self] (gridView, indexPath, visiableCells) in
         }
@@ -68,10 +85,19 @@ class ViewController: UIViewController {
             self?.selectedFullScreenImages.append(compressdCameraImage)
             self?.selectedThumbnails.append(compressdCameraImage)
         }
-        imageGridView.itemDeleteButtonClicked = { [weak self] (gridView, indexPath) in
+        imageGridView.itemDeleteButtonClicked = { (gridView, indexPath) in
             gridView.remove(imageAt: indexPath)
-            self?.selectedFullScreenImages.remove(at: indexPath.row)
-            self?.selectedThumbnails.remove(at: indexPath.row)
+        }
+        imageGridView.dataSourceDidRemoveAt = { [weak self] index in
+            self?.selectedFullScreenImages.remove(at: index)
+            self?.selectedThumbnails.remove(at: index)
+        }
+        imageGridView.dataSourceDidInsertAfterRemove = { [weak self] removedIndex, insertedIndex in
+            guard let `self` = self else { return }
+            var model = self.selectedThumbnails.remove(at: removedIndex)
+            self.selectedThumbnails.insert(model, at: insertedIndex)
+            model = self.selectedFullScreenImages.remove(at: removedIndex)
+            self.selectedFullScreenImages.insert(model, at: insertedIndex)
         }
     }
 }

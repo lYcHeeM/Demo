@@ -55,6 +55,9 @@ int binary_search_tree_create_by_sequence(const int *sequence, size_t length, BT
 /// 二叉搜索树动态查找, 如果未查找到元素, 将会把元素插入倒叶子节点中.
 /// position返回最后遍历节点的地址(意味着, 搜索成功时, position指向目标节点);
 bool binary_search_tree_search(BTNodePt tree, int target_value, BTNodePt *position);
+/// 在一颗二叉搜索树中插入一个值为`value`的元素(节点，新的节点申请的内存将放入堆区);
+/// 可见在绝大多数数据结构中，插入一个元素都需要先查找到合适的插入位置;
+int binary_search_tree_insert(BTNodePt *tree, int value);
 /// 把一颗二叉搜索树转换成一个有序(升序)的双向链表;
 /// 用二叉树节点中的p_right指向链表中的下一个节点, p_left指向上一个节点;
 /// list_head参数为转换后链表的头结点, list_tail为尾节点;
