@@ -14,6 +14,9 @@
 #include "AboutLinkedList.hpp"
 #include <set>
 #include "AboutBinaryTree.hpp"
+#include "AboutString.hpp"
+#include "AboutPermutation.hpp"
+#include <string.h>
 
 void print_int_array(int *array, size_t length) {
     if (array == NULL || length == 0) {
@@ -200,7 +203,23 @@ int main(int argc, const char * argv[]) {
     
 //    test_linked_list();
 //    test_the_Kth_large_algorithm();
-    test_binary_tree();
+//    test_binary_tree();
+    
+//    int error_code = 0;
+//    int number = atoint32("+++++---+2147483648", &error_code);
+//    printf("error code: %d\n", error_code);
+//    printf("number: %d\n", number);
+    
+    // 测试代码
+    char **result = NULL;
+    size_t permutations_count = 0;
+    int error_code = string_permutations("ABCD", &result, &permutations_count);
+    if (error_code < 0) printf("error code: %d\n", error_code);
+    for (size_t i = 1; i <= permutations_count; ++ i) {
+        printf("%s    ", result[i-1]);
+        if (i % 10 == 0) printf("\n");
+    }
+    printf("\n");
     return 0;
 }
 

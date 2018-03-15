@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B2EB72E81A6B70E800C70D04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EB72E71A6B70E800C70D04 /* main.m */; };
+		B2EB72EB1A6B70E800C70D04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EB72EA1A6B70E800C70D04 /* AppDelegate.m */; };
+		B2EB72EE1A6B70E800C70D04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EB72ED1A6B70E800C70D04 /* ViewController.m */; };
+		B2EB72F11A6B70E800C70D04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2EB72EF1A6B70E800C70D04 /* Main.storyboard */; };
+		B2EB72F31A6B70E800C70D04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2EB72F21A6B70E800C70D04 /* Images.xcassets */; };
+		B2EB72F61A6B70E800C70D04 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2EB72F41A6B70E800C70D04 /* LaunchScreen.xib */; };
+		B2EB73021A6B70E800C70D04 /* TextViewHeightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B2EB73011A6B70E800C70D04 /* TextViewHeightTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B2EB72FC1A6B70E800C70D04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2EB72DA1A6B70E800C70D04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B2EB72E11A6B70E800C70D04;
+			remoteInfo = TextViewHeight;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B2EB72E21A6B70E800C70D04 /* TextViewHeight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextViewHeight.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2EB72E61A6B70E800C70D04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2EB72E71A6B70E800C70D04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B2EB72E91A6B70E800C70D04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B2EB72EA1A6B70E800C70D04 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B2EB72EC1A6B70E800C70D04 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B2EB72ED1A6B70E800C70D04 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B2EB72F01A6B70E800C70D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B2EB72F21A6B70E800C70D04 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B2EB72F51A6B70E800C70D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B2EB72FB1A6B70E800C70D04 /* TextViewHeightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextViewHeightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2EB73001A6B70E800C70D04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2EB73011A6B70E800C70D04 /* TextViewHeightTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextViewHeightTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B2EB72DF1A6B70E800C70D04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2EB72F81A6B70E800C70D04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B2EB72D91A6B70E800C70D04 = {
+			isa = PBXGroup;
+			children = (
+				B2EB72E41A6B70E800C70D04 /* TextViewHeight */,
+				B2EB72FE1A6B70E800C70D04 /* TextViewHeightTests */,
+				B2EB72E31A6B70E800C70D04 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B2EB72E31A6B70E800C70D04 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B2EB72E21A6B70E800C70D04 /* TextViewHeight.app */,
+				B2EB72FB1A6B70E800C70D04 /* TextViewHeightTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B2EB72E41A6B70E800C70D04 /* TextViewHeight */ = {
+			isa = PBXGroup;
+			children = (
+				B2EB72E91A6B70E800C70D04 /* AppDelegate.h */,
+				B2EB72EA1A6B70E800C70D04 /* AppDelegate.m */,
+				B2EB72EC1A6B70E800C70D04 /* ViewController.h */,
+				B2EB72ED1A6B70E800C70D04 /* ViewController.m */,
+				B2EB72EF1A6B70E800C70D04 /* Main.storyboard */,
+				B2EB72F21A6B70E800C70D04 /* Images.xcassets */,
+				B2EB72F41A6B70E800C70D04 /* LaunchScreen.xib */,
+				B2EB72E51A6B70E800C70D04 /* Supporting Files */,
+			);
+			path = TextViewHeight;
+			sourceTree = "<group>";
+		};
+		B2EB72E51A6B70E800C70D04 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B2EB72E61A6B70E800C70D04 /* Info.plist */,
+				B2EB72E71A6B70E800C70D04 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B2EB72FE1A6B70E800C70D04 /* TextViewHeightTests */ = {
+			isa = PBXGroup;
+			children = (
+				B2EB73011A6B70E800C70D04 /* TextViewHeightTests.m */,
+				B2EB72FF1A6B70E800C70D04 /* Supporting Files */,
+			);
+			path = TextViewHeightTests;
+			sourceTree = "<group>";
+		};
+		B2EB72FF1A6B70E800C70D04 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B2EB73001A6B70E800C70D04 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B2EB72E11A6B70E800C70D04 /* TextViewHeight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2EB73051A6B70E800C70D04 /* Build configuration list for PBXNativeTarget "TextViewHeight" */;
+			buildPhases = (
+				B2EB72DE1A6B70E800C70D04 /* Sources */,
+				B2EB72DF1A6B70E800C70D04 /* Frameworks */,
+				B2EB72E01A6B70E800C70D04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextViewHeight;
+			productName = TextViewHeight;
+			productReference = B2EB72E21A6B70E800C70D04 /* TextViewHeight.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B2EB72FA1A6B70E800C70D04 /* TextViewHeightTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2EB73081A6B70E800C70D04 /* Build configuration list for PBXNativeTarget "TextViewHeightTests" */;
+			buildPhases = (
+				B2EB72F71A6B70E800C70D04 /* Sources */,
+				B2EB72F81A6B70E800C70D04 /* Frameworks */,
+				B2EB72F91A6B70E800C70D04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B2EB72FD1A6B70E800C70D04 /* PBXTargetDependency */,
+			);
+			name = TextViewHeightTests;
+			productName = TextViewHeightTests;
+			productReference = B2EB72FB1A6B70E800C70D04 /* TextViewHeightTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B2EB72DA1A6B70E800C70D04 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = luozhijun;
+				TargetAttributes = {
+					B2EB72E11A6B70E800C70D04 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					B2EB72FA1A6B70E800C70D04 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = B2EB72E11A6B70E800C70D04;
+					};
+				};
+			};
+			buildConfigurationList = B2EB72DD1A6B70E800C70D04 /* Build configuration list for PBXProject "TextViewHeight" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B2EB72D91A6B70E800C70D04;
+			productRefGroup = B2EB72E31A6B70E800C70D04 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B2EB72E11A6B70E800C70D04 /* TextViewHeight */,
+				B2EB72FA1A6B70E800C70D04 /* TextViewHeightTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B2EB72E01A6B70E800C70D04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2EB72F11A6B70E800C70D04 /* Main.storyboard in Resources */,
+				B2EB72F61A6B70E800C70D04 /* LaunchScreen.xib in Resources */,
+				B2EB72F31A6B70E800C70D04 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2EB72F91A6B70E800C70D04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B2EB72DE1A6B70E800C70D04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2EB72EE1A6B70E800C70D04 /* ViewController.m in Sources */,
+				B2EB72EB1A6B70E800C70D04 /* AppDelegate.m in Sources */,
+				B2EB72E81A6B70E800C70D04 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2EB72F71A6B70E800C70D04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2EB73021A6B70E800C70D04 /* TextViewHeightTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B2EB72FD1A6B70E800C70D04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B2EB72E11A6B70E800C70D04 /* TextViewHeight */;
+			targetProxy = B2EB72FC1A6B70E800C70D04 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B2EB72EF1A6B70E800C70D04 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2EB72F01A6B70E800C70D04 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B2EB72F41A6B70E800C70D04 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2EB72F51A6B70E800C70D04 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B2EB73031A6B70E800C70D04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B2EB73041A6B70E800C70D04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B2EB73061A6B70E800C70D04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TextViewHeight/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B2EB73071A6B70E800C70D04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TextViewHeight/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B2EB73091A6B70E800C70D04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TextViewHeightTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TextViewHeight.app/TextViewHeight";
+			};
+			name = Debug;
+		};
+		B2EB730A1A6B70E800C70D04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TextViewHeightTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TextViewHeight.app/TextViewHeight";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B2EB72DD1A6B70E800C70D04 /* Build configuration list for PBXProject "TextViewHeight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2EB73031A6B70E800C70D04 /* Debug */,
+				B2EB73041A6B70E800C70D04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2EB73051A6B70E800C70D04 /* Build configuration list for PBXNativeTarget "TextViewHeight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2EB73061A6B70E800C70D04 /* Debug */,
+				B2EB73071A6B70E800C70D04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B2EB73081A6B70E800C70D04 /* Build configuration list for PBXNativeTarget "TextViewHeightTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2EB73091A6B70E800C70D04 /* Debug */,
+				B2EB730A1A6B70E800C70D04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B2EB72DA1A6B70E800C70D04 /* Project object */;
+}
