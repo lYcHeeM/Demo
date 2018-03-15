@@ -25,7 +25,7 @@ static void *ZJKVOAssociatedObserversKey = &ZJKVOAssociatedObserversKey;
     if (self) {
         _observer     = observer;
         _keyPath      = key;
-        _notification = notification;
+        _notification = [notification copy];
     }
     return self;
 }
@@ -161,14 +161,14 @@ static void kvo_setter(id self, SEL _cmd, id newValue) {
 
 /// 原理: Objc Runtime系统的综合应用
 /// 1. 假设被观察的对象为a, 须生成一个临时类B, B继承自对象a的类A, 即为B->A;
-/// 2. 之后改写对象a的isa指针, 使它指向B, 同时为了不破坏原始的继承链, 须重写
-/// 临时类B的class方法, 使它返回原始类的Class对象, 而且, 此时对a调用superclass也能
-/// 正确得到原始类的父类, 因为Objc Runtime查找父类的过程是这样发消息的
+/// 2. 之后改写对象a的isa指针, 使它指向B, 同时为了不干扰原始的继承链, 须重写
+/// 临时类B的class方法, 使它返回原始类的Class(objc_class)对象, 而且, 此时对a调用
+/// [a superclass]也能正确得到原始类的父类, 因为Objc Runtime查找父类的过程是这样发消息的
 /// [[object class] superclass];
 /// 3. 之后重写临时类的setter方法, 由于临时类B是A的子类, 所以重写过程中, 需要调用父类A的
 /// setter方法, 并在重写的setter方法的末尾通知当前对象的所有观察者, 把oldValue、newValue
 /// 通过回调发给观察者;
-/// 4. 通过AssociatedObjects方式, 维护一个集合, 里面引用所有观察者, 所以观察者有责任在
+/// 4. 通过AssociatedObjects方式, 维护一个集合, 里面引用所有观察者, 所以外界有责任在
 /// 适宜的时机移除观察(removeObserver方法).
 - (void)zj_addObserver:(NSObject *)observer forKeyPath:(NSString *)key changed:(ZJObserverNotification)notification {
     // 获取setter指针

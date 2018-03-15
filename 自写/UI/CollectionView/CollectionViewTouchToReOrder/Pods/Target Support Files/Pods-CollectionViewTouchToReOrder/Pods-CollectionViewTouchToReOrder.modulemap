@@ -1,0 +1,6 @@
+framework module Pods_CollectionViewTouchToReOrder {
+  umbrella header "Pods-CollectionViewTouchToReOrder-umbrella.h"
+
+  export *
+  module * { export * }
+}
