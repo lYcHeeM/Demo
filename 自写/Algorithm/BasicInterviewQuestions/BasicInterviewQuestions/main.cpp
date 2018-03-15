@@ -166,7 +166,6 @@ int main(int argc, const char * argv[]) {
     
 //    test_linked_list();
 //    test_the_Kth_large_algorithm();
-<<<<<<< HEAD
 //    test_binary_tree();
     
 //    int error_code = 0;
@@ -174,20 +173,6 @@ int main(int argc, const char * argv[]) {
 //    printf("error code: %d\n", error_code);
 //    printf("number: %d\n", number);
     
-    // 测试代码
-    char **result = NULL;
-    size_t permutations_count = 0;
-    int error_code = string_permutations("ABCD", &result, &permutations_count);
-    if (error_code < 0) printf("error code: %d\n", error_code);
-    for (size_t i = 1; i <= permutations_count; ++ i) {
-        printf("%s    ", result[i-1]);
-        if (i % 10 == 0) printf("\n");
-    }
-    printf("\n");
-=======
-    test_binary_tree();
-    
->>>>>>> CollectionView re-order optimiazition.
     return 0;
 }
 

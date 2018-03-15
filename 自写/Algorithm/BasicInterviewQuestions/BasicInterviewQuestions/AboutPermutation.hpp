@@ -18,4 +18,6 @@
 /// 时间复杂度: O(n!), n为字符串长度; 空间复杂度O(n) (若参数`result`非空, 空间复杂度亦为O(n!)).
 int string_permutations(const char *string, char ***result, size_t *permutations_amount);
 
+// 测试代码
+void string_permutations_test();
 #endif /* AboutPermutation_hpp */
