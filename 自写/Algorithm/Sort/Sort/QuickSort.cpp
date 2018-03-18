@@ -86,20 +86,20 @@ int partition_array_1(int *array, size_t len, int ref_pos, int *result_pos) {
     int *end = array + len - 1;
     swap_two_values(p_refrence, end);
     
-    int small_index = -1;
+    int smaller_index = -1;
     for (int index = 0; index < len - 1; ++ index) {
         if (array[index] < *end) {
-            ++ small_index;
-            if (small_index != index) {
-                swap_two_values(&array[index], &array[small_index]);
+            ++ smaller_index;
+            if (smaller_index != index) {
+                swap_two_values(&array[index], &array[smaller_index]);
             }
         }
     }
     
-    ++ small_index;
-    swap_two_values(&array[small_index], end);
+    ++ smaller_index;
+    swap_two_values(&array[smaller_index], end);
     
-    if (result_pos) *result_pos = small_index;
+    if (result_pos) *result_pos = smaller_index;
     return 0;
 }
 

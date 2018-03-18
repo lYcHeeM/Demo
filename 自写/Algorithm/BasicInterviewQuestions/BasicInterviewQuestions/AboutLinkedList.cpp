@@ -305,6 +305,55 @@ int linked_list_merge_two_sorted_list(LListPt first, LListPt second, bool is_asc
     return 0;
 }
 
+#pragma mark -
+bool node_is_left_smaller(LNodePt left, LNodePt right) {
+    return left->value < right->value;
+}
 
-
+void test_linked_list() {
+    LListPt list = linked_list_init();
+    for (int i = 0; i < 5; i ++) {
+        LNodePt new_node = (LNodePt)malloc(sizeof(LinkedListNode));
+        new_node->value = i + 1;
+        new_node->p_next = NULL;
+        append_node(list, new_node);
+    }
+    linked_list_print(list);
+    
+    LNodePt target_node = NULL;
+    int state = linked_list_the_last_Kth_node(list, 0, &target_node);
+    if (state == 0) {
+        printf("%d\n", target_node->value);
+    } else {
+        printf("error code = %d\n", state);
+    }
+    
+    LListPt list2 = linked_list_init();
+    for (int i = 2; i < 7; i ++) {
+        LNodePt new_node = (LNodePt)malloc(sizeof(LinkedListNode));
+        new_node->value = i + 1;
+        new_node->p_next = NULL;
+        append_node(list2, new_node);
+    }
+    linked_list_print(list2);
+    
+    LNodePt new_node = (LNodePt)malloc(sizeof(LinkedListNode));
+    new_node->value = 0;
+    new_node->p_next = NULL;
+    insert_node_at(list2, new_node, 0);
+    
+    LNodePt new_node1 = (LNodePt)malloc(sizeof(LinkedListNode));
+    new_node1->value = -1;
+    new_node1->p_next = NULL;
+    insert_node_at(list2, new_node1, 0);
+    
+    LNodePt new_node2 = (LNodePt)malloc(sizeof(LinkedListNode));
+    new_node2->value = 10;
+    new_node2->p_next = NULL;
+    append_node(list2, new_node2);
+    
+    LListPt merged_list = NULL;
+    linked_list_merge_two_sorted_list(list, list2, true, node_is_left_smaller, &merged_list);
+    linked_list_print(merged_list);
+}
 

@@ -65,3 +65,10 @@ int atoint32(const char *string, int *error_code) {
     
     return (int)result;
 }
+
+void test_atoint32() {
+    int error_code = 0;
+    int number = atoint32("+++++---+2147483648", &error_code);
+    debug_log("error code: %d\n", error_code);
+    debug_log("number: %d\n", number);
+}

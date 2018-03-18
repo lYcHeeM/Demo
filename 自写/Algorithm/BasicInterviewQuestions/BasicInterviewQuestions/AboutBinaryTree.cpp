@@ -17,6 +17,7 @@ BTNodePt binary_tree_node_create(int value) {
     return node;
 }
 
+/// 给出两颗根节点相同的树，判断tree1是否包含tree2
 bool doesTree1ContainsTree2_recursively(BTNodePt tree1, BTNodePt tree2) {
     if (!tree1) return false;
     // 此处规定, 如果tree2为空树, 表示tree2是tree1的子树
@@ -382,7 +383,7 @@ int binary_search_tree_insert(BTNodePt *tree, int value) {
         return 0;
     }
     
-    if ((*tree)->value > value) {
+    if ((*tree)->value >= value) {
         if (!(*tree)->p_left) {
             BTNodePt node = binary_tree_node_create(value);
             if (!node) return -1;
@@ -448,4 +449,192 @@ void __binary_search_tree_convert_to_bi_linkedlist(BTNodePt tree, BTNodePt *list
     if (tree->p_right)
         __binary_search_tree_convert_to_bi_linkedlist(tree->p_right, list_head, list_tail, last_visited_node);
 }
+
+#pragma mark - Test
+void binary_tree_node_print(BTNodePt node) {
+    if (node) {
+        printf("%d\t", node->value);
+    }
+}
+
+void __preorder_traversal(BTNodePt tree);
+void __inorder_traversal(BTNodePt tree);
+void __lastorder_traversal(BTNodePt tree);
+void test_binary_tree() {
+    BinaryTreeNode n_10;
+    n_10.value = 10;
+    
+    BinaryTreeNode n_2;
+    n_2.value = 2;
+    
+    BinaryTreeNode n_5;
+    n_5.value = 5;
+    n_5.p_right = &n_10;
+    
+    BinaryTreeNode n_3;
+    n_3.value = 3;
+    n_3.p_left = &n_5;
+    n_3.p_right = &n_2;
+    
+    BinaryTreeNode n_minus_1;
+    n_minus_1.value = -1;
+    
+    BinaryTreeNode n_0;
+    n_0.value = 0;
+    
+    BinaryTreeNode n_4;
+    n_4.value = 4;
+    n_4.p_left = &n_minus_1;
+    n_4.p_right = &n_0;
+    
+    BinaryTreeNode n_1;
+    n_1.value = 1;
+    n_1.p_left = &n_3;
+    n_1.p_right = &n_4;
+    
+    int state = binary_tree_traversal_preorder(&n_1, binary_tree_node_print);
+    printf("\nstate = %d\n", state);
+    state = binary_tree_traversal_inorder(&n_1, binary_tree_node_print);
+    printf("\nstate = %d\n", state);
+    state = binary_tree_traversal_lastorder(&n_1, binary_tree_node_print);
+    printf("\nstate = %d\n", state);
+    __preorder_traversal(&n_1);
+    __inorder_traversal(&n_1);
+    __lastorder_traversal(&n_1);
+    
+    // 重建二叉树
+    int pre_order_s[] = {1,    3,    5,    10,    2,    4,    -1,    0};
+    int in_order_s[]  = {5,    10,    3,    2,    1,    -1,    4,    0};
+    
+    BTNodePt result = NULL;
+    binary_tree_construct_according_pre_and_in_order_sequence(pre_order_s, in_order_s, sizeof(pre_order_s)/sizeof(pre_order_s[0]), &result);
+    binary_tree_traversal_preorder(result, binary_tree_node_print);
+    printf("\n");
+    binary_tree_traversal_inorder(result, binary_tree_node_print);
+    printf("\n");
+    
+    // 输出所有路径
+    binary_tree_print_all_paths(result);
+    
+    // 创建一颗二叉搜索树
+    int seq[] = {8, 5, 13, 3, 4, 7, 13, 9, 11};
+    BTNodePt bst = NULL;
+    binary_search_tree_create_by_sequence(seq, sizeof(seq)/sizeof(seq[0]), &bst);
+    binary_tree_traversal_inorder(bst, binary_tree_node_print);
+    printf("\n");
+    __preorder_traversal(bst);
+    printf("\n");
+    __inorder_traversal(bst);
+    printf("\n");
+    __lastorder_traversal(bst);
+    printf("\n");
+    
+    debug_log("--convert to bi linkedlist--");
+    BTNodePt converted_list_head = NULL;
+    BTNodePt converted_list_tail = NULL;
+    binary_search_tree_convert_to_bi_linkedlist(bst, &converted_list_head, &converted_list_tail);
+    BTNodePt p_node = converted_list_head;
+    debug_log("\nAscend(according `p_right`): ");
+    while (p_node != NULL) {
+        printf("%d   ", p_node->value);
+        p_node = p_node->p_right;
+    }
+    debug_log("\nDescend(according `p_left`): ");
+    p_node = converted_list_tail;
+    while (p_node != NULL) {
+        printf("%d   ", p_node->value);
+        p_node = p_node->p_left;
+    }
+    printf("\n");
+}
+
+///----------------------------------------
+/// 下面三个函数是20180317练手用的, 由此也可再总结一下二叉树遍历的特点:
+/// 无论前序\中序\后序, 都要先向左走到底, 之后尝试切换到右子树, 如果右子树为空或者右子树
+/// 已经遍历过了（用一个指针记录已遍历过的树）, 则表明当前树的左右子树均完成遍历(在前序、
+/// 中序中，也表明当前树已完成遍历)，可以把当前树的根节点退栈(在前序、中序中，因根节点是在
+/// 其右子树之前被访问的，故可以在切换到右子树之前退栈，也即无需等待当前树全部遍历完成之后才把根节点退栈)。
+/// 另外，三种遍历的结构非常相似，只在访问节点的时机有所不同。如果算上循环遍历下退栈时机的优化，则还有一个不同点，
+/// 即退栈时机的不同，前序和中序可以在访问右子树之前退栈，而后序必须等待右子树完全遍历后，根节点才得到访问，此时才可退栈。
+///----------------------------------------
+void __preorder_traversal(BTNodePt tree) {
+    debug_log("preorder_traversal start---\n");
+    std::stack<BTNodePt> stack;
+    BTNodePt last_visited_tree = NULL;
+    while (tree || stack.size() > 0) {
+        if (tree) {
+            printf("%d    ", tree->value);
+            stack.push(tree);
+            tree = tree->p_left;
+        } else {
+            BTNodePt parent = stack.top();
+            // 可能会以为第一个条件可有可无，举一个例子即可知这种想法是错误的，比如parent->right为空，
+            // 但last_visited_tree不为空
+            if (parent->p_right && parent->p_right != last_visited_tree) {
+                tree = parent->p_right;
+            } else {
+                last_visited_tree = parent;
+//                stack.pop();
+            }
+            // 按照递归的思路，其实是在当前树全部遍历完成之后才把根节点退栈的(想象每一层函数调用返回上层的时机)，即注释了那行代码的方式；
+            // 但此处可以稍微优化一下，因为当前节点在切换到其右子树之前就已经遍历过了，所以不论是否切换到右子树，
+            // 都可以把当前树的根节点退栈，这样可以使循环的次数有所减少。中序遍历也一样，而且循环遍历下，中序遍历
+            // 提前退栈有好处，如果把访问代码写在第一个else块的入口，提前退栈可以避免在重复打印，因为第一个else块
+            // 的进入条件有两种: 栈顶树的左子树为空，栈顶树的右子树已遍历完，也就是说不论从左子树还是从右子树
+            // 回到根节点，根节点均会被打印一遍，如果一棵树左右子树均不为空，则它的根节点会被打印两次。
+            // 但后序遍历却不能如此优化，因为后续遍历必须是在当前树完全遍历之后才访问根节点，
+            // 所以根节点不能在其左右子树均遍历完成之前退栈。
+            stack.pop();
+        }
+    }
+    debug_log("preorder_traversal end---\n");
+}
+
+void __inorder_traversal(BTNodePt tree) {
+    debug_log("inorder_traversal start---\n");
+    // 此处为了新鲜感，用一个vector实现栈的功能
+    std::vector<BTNodePt> stack;
+    BTNodePt last_visited_tree = NULL;
+    while (tree || stack.size() > 0) {
+        if (tree) {
+            stack.push_back(tree);
+            tree = tree->p_left;
+        } else {
+            BTNodePt parent = *(stack.end() - 1);
+            printf("%d    ", parent->value);
+            if (parent->p_right && parent->p_right != last_visited_tree) {
+                tree = parent->p_right;
+            } else {
+                last_visited_tree = parent;
+            }
+            stack.pop_back();
+        }
+    }
+    debug_log("inorder_traversal end---\n");
+}
+
+void __lastorder_traversal(BTNodePt tree) {
+    debug_log("lastorder_traversal start---\n");
+    std::stack<BTNodePt> stack;
+    BTNodePt last_visited_tree = NULL;
+    while (tree || stack.size() > 0) {
+        if (tree) {
+            stack.push(tree);
+            tree = tree->p_left;
+        } else {
+            BTNodePt parent = stack.top();
+            if (parent->p_right && parent->p_right != last_visited_tree) {
+                tree = parent->p_right;
+            } else {
+                printf("%d    ", parent->value);
+                last_visited_tree = parent;
+                stack.pop();
+            }
+        }
+    }
+    debug_log("lastorder_traversal end---\n");
+}
+
+
+
 

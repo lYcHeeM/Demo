@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include "common.hpp"
 
 struct BinaryTreeNode {
     int value = 0;
@@ -50,7 +51,8 @@ int binary_tree_traversal_lastorder(BTNodePt tree, void (* visit)(BTNodePt));
 int binary_tree_print_all_paths(BTNodePt tree);
 
 #pragma mark - BST
-/// 用一个不含相等元素的线性序列创建一颗二叉搜索树(非平衡)
+/// 用一个不含相等元素的线性序列创建一颗二叉搜索树(非平衡)，
+/// 简便起见，暂不考虑相等元素的情况（比较复杂，可能涉及到树的删除操作）
 int binary_search_tree_create_by_sequence(const int *sequence, size_t length, BTNodePt *tree);
 /// 二叉搜索树动态查找, 如果未查找到元素, 将会把元素插入倒叶子节点中.
 /// position返回最后遍历节点的地址(意味着, 搜索成功时, position指向目标节点);
@@ -62,4 +64,8 @@ int binary_search_tree_insert(BTNodePt *tree, int value);
 /// 用二叉树节点中的p_right指向链表中的下一个节点, p_left指向上一个节点;
 /// list_head参数为转换后链表的头结点, list_tail为尾节点;
 int binary_search_tree_convert_to_bi_linkedlist(BTNodePt tree, BTNodePt *list_head, BTNodePt *list_tail);
+
+#pragma mark - Test
+void test_binary_tree();
+
 #endif /* AboutBinaryTree_hpp */

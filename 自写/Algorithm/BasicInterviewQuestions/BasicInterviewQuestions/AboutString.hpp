@@ -10,7 +10,11 @@
 #define AboutString_hpp
 
 #include <stdio.h>
+#include "common.hpp"
+
 /// 把一个ASCII的字符串转为数字, 时间复杂度为O(n);
 /// error_code: -1 -> 空指针或空字符; -2 -> 没有数字字符; -3 -> 值溢出
 int atoint32(const char *string, int *error_code);
+void test_atoint32();
+
 #endif /* AboutString_hpp */
