@@ -48,10 +48,12 @@ int DALGraph_create(int *vertexes, size_t vertexnum, const std::multimap<int ,in
         VertexPt vertex = ALGraph_vertex_init();
         if (!vertex) return -2;
         vertex->value = vertexes[i];
+        vertex->index = i;
         graph->vertexes[i] = vertex;
     }
     
     // 链接所有弧节点, O(n+e)
+    // 因为要动态删除使用过的弧，此处用拷贝构造函数复制一份输入
     std::multimap<int, int> arcs_copy = arcs;
     for (int i = 0; i < vertexnum; ++ i) {
         VertexPt vertex = graph->vertexes[i];
@@ -89,27 +91,89 @@ int DALGraph_create(int *vertexes, size_t vertexnum, const std::multimap<int ,in
     return 0;
 }
 
-/// 深度优先搜索
-int ALGraph_dfs(ALGraphPt graph, VertexPt start, void (*visit)(VertexPt)) {
+void __ALGraph_dfs_on_vertex(ALGraphPt graph, VertexPt start, bool *visitedflags, void (*visit)(VertexPt), std::vector<int> &dfs_exit_vertex_orders);
+/// 深度优先搜索，可指定搜索的起始顶点
+/// @param start 搜索的起始顶点，可为空
+/// @param dfs_exit_vertex_orders 由于是递归遍历，此参数记录函数栈的退出先后顺序对应的顶点序号(在顶点序列中的位置)，
+/// 如果是有向无环图，调用者可以此序列来求出拓扑有序序列。因为无环，所以最先退出DFS函数的顶点即为出度为零的顶点，
+/// 也就是拓扑有序序列中的最后一个顶点。由此，按退出DFS函数的先后顺序记录下的顶点序列即为逆向的拓扑有序序列。
+/// 时间复杂度为O(n+e);
+int ALGraph_dfs(ALGraphPt graph, VertexPt start, void (*visit)(VertexPt), std::vector<int> &dfs_exit_vertex_orders) {
     if (!graph || !graph->vertexes || graph->vertexnum == 0) return -1;
     
     bool visited[graph->vertexnum];
-//    unsigned int visitednum = 0;
     for (int i = 0; i < graph->vertexnum; ++ i)
         visited[i] = false;
     
-    VertexPt using_start = start == NULL ? start : graph->vertexes[0];
-    if (!visited[using_start->index] && visit)
-        visit(using_start);
-    else
-        return 0;
+    int start_index = 0;
+    if (start) start_index = start->index;
     
-    ArcPt firstarc = using_start->firstarc;
-    if (firstarc) {
-        VertexPt first_adjacency_vertex = graph->vertexes[firstarc->head_vertex_index];
-        return ALGraph_dfs(graph, first_adjacency_vertex, visit);
-    }
+    for (int i = start_index; i < graph->vertexnum; ++ i)
+        if (!visited[i])
+            __ALGraph_dfs_on_vertex(graph, graph->vertexes[i], visited, visit, dfs_exit_vertex_orders);
+    for (int i = 0; i < start_index; ++ i)
+        if (!visited[i])
+            __ALGraph_dfs_on_vertex(graph, graph->vertexes[i], visited, visit, dfs_exit_vertex_orders);
+    
     return 0;
+}
+/// 只对某一个顶点进行深度优先搜索，若遇到出度为零的顶点则停止，函数返回
+void __ALGraph_dfs_on_vertex(ALGraphPt graph, VertexPt start, bool *visitedflags, void (*visit)(VertexPt), std::vector<int> &dfs_exit_vertex_orders) {
+    // 访问当前顶点，并把对应标志位置为true
+    if (visit) visit(start);
+    visitedflags[start->index] = true;
+    
+    // 遍历所有邻接点
+    for (ArcPt arc = start->firstarc; arc != NULL; arc = arc->nextarc) {
+        VertexPt adjacency_vertex = graph->vertexes[arc->head_vertex_index];
+        if (!visitedflags[adjacency_vertex->index])
+            __ALGraph_dfs_on_vertex(graph, adjacency_vertex, visitedflags, visit, dfs_exit_vertex_orders);
+    }
+    
+    dfs_exit_vertex_orders.push_back(start->value);
+}
+
+void __ALGraph_bfs_on_vertex(ALGraphPt graph, VertexPt start, bool *visitedflags, void (*visit)(VertexPt));
+/// 广度优先搜索；
+/// 时间复杂度为O(n+e);
+int ALGraph_bfs(ALGraphPt graph, VertexPt start, void (*visit)(VertexPt)) {
+    if (!graph || !graph->vertexes || graph->vertexnum == 0) return -1;
+    
+    bool visited[graph->vertexnum];
+    for (int i = 0; i < graph->vertexnum; ++ i)
+        visited[i] = false;
+    
+    if (!start) start = graph->vertexes[0];
+    
+    for (int i = start->index; i < graph->vertexnum; ++ i)
+        __ALGraph_bfs_on_vertex(graph, graph->vertexes[i], visited, visit);
+    for (int i = 0; i < start->index; ++ i)
+        __ALGraph_bfs_on_vertex(graph, graph->vertexes[i], visited, visit);
+    
+    return 0;
+}
+/// 只对某一个顶点进行广度优先搜索，若遇到出度为零的顶点则停止，函数返回
+void __ALGraph_bfs_on_vertex(ALGraphPt graph, VertexPt start, bool *visitedflags, void (*visit)(VertexPt)) {
+    if (visitedflags[start->index]) return;
+    
+    std::queue<VertexPt> queue;
+    queue.push(start);
+    if (visit) visit(start);
+    visitedflags[start->index] = true;
+    
+    while (!queue.empty()) {
+        VertexPt current = queue.front();
+        queue.pop();
+        
+        for (ArcPt arc = current->firstarc; arc != NULL; arc = arc->nextarc) {
+            VertexPt adjacency_vertex = graph->vertexes[arc->head_vertex_index];
+            if (!visitedflags[adjacency_vertex->index]) {
+                if (visit) visit(adjacency_vertex);
+                visitedflags[adjacency_vertex->index] = true;
+                queue.push(adjacency_vertex);
+            }
+        }
+    }
 }
 
 /// 对有向图进行拓扑排序；时间复杂度为O(n+e);
@@ -169,10 +233,8 @@ int DALGraph_topological_sort(ALGraphPt graph, int **result, size_t *result_len,
     return 0;
 }
 
-void vertex_print(VertexPt vertex) {
-    if (vertex) {
-        printf("%d\t", vertex->value);
-    }
+void ALGraph_vertex_print(VertexPt vertex) {
+    if (vertex) printf("%d   ", vertex->value);
 }
 
 void test_DALGraph_topological_sort() {
@@ -211,4 +273,16 @@ void test_DALGraph_topological_sort() {
         debug_log("has loop!");
     
     print_int_array(result, result_len);
+    
+    std::vector<int> dfs_exit_vertex_orders;
+    ALGraph_dfs(DALGraph, NULL, ALGraph_vertex_print, dfs_exit_vertex_orders);
+    /// 对于有向无环图，顶点退出dfs函数的先后顺序和拓扑有序序列的正好互逆
+    debug_log("reversed dfs exit vertex order:\n");
+    for (std::vector<int>::iterator it = dfs_exit_vertex_orders.end() - 1; it >= dfs_exit_vertex_orders.begin(); -- it) {
+        printf("%d   ", *it);
+    }
+    printf("\n");
+    
+    ALGraph_bfs(DALGraph, NULL, ALGraph_vertex_print);
+    printf("\n");
 }

@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <set>
 #include <stdio.h>
+#include <exception>
 
 /// 为防止外界使用诸如 if (a) debug_log() 形式, 而这个宏的本质是替换代码（犹豫有\连接符，此处全是替换成一行代码），
 /// 也由于此，下面的__LINE__变量才是准确的。

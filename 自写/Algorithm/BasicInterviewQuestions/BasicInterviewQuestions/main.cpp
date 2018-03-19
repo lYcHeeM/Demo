@@ -60,14 +60,15 @@ void test_multimap() {
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
-    test_min_value_of_rotated_sorted_array();
+//    test_min_value_of_rotated_sorted_array();
 //    test_linked_list();
 //    test_the_Kth_large_algorithm();
 //    test_binary_tree();
     
 //    test_merge_two_sorted_array_without_temp_memory();
 //    test_multimap();
-//    test_DALGraph_topological_sort();
+    test_DALGraph_topological_sort();
+    
     return 0;
 }
 
