@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "First"
+        view.backgroundColor = UIColor.orange
         
         let btn = UIButton(type: .system)
         view.addSubview(btn)
@@ -21,21 +22,14 @@ class ViewController: UIViewController {
         btn.center = CGPoint(x: 100, y: 200)
         btn.addTarget(self, action: #selector(pushToNext), for: .touchUpInside)
         
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        navigationController?.navigationBar.barStyle = .black
     }
     
     @objc func pushToNext() {
         navigationController?.pushViewController(SecondViewController(), animated: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
     
 }
 

@@ -46,4 +46,6 @@ for (int i = (int)(strlen(__FILE__) - 1); i >= 0; --i)\
 const char * file_name();
 void print_int_array(int *array, size_t length);
 
+bool double_equal(double left, double right);
+
 #endif /* common_h */

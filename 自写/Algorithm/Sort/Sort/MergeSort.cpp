@@ -94,7 +94,7 @@ void merge_two_sorted_arrays(int *array_1, size_t length_1, int *array_2, size_t
 }
 
 
-void __merge_sort_recursively(int *sequence, size_t start, size_t end, bool (*is_left_smaller)(int, int), int **cache);
+void __merge_sort_recursively(int *sequence, size_t start, size_t end, bool (*is_left_smaller)(int, int), int *cache);
 /// 归并排序, 递归方式;
 int merge_sort_recursively(int *sequence, size_t length, bool (*is_left_smaller)(int, int)) {
     if (!sequence || length == 0 || !is_left_smaller) return -1;
@@ -103,17 +103,17 @@ int merge_sort_recursively(int *sequence, size_t length, bool (*is_left_smaller)
     // 但一次性分配最大所需缓存, 性能更好.
     // 由此可见这是以空间复杂度为O(n)换取部分的时间复杂度(O(n^2)->O(n*logn));
     int *cache = (int *)malloc(length * sizeof(int));
-    // 可确定copyed数组将会被重写, 故无需初始化.
+    // 可确定cache数组将会被重写, 故无需初始化.
     // memset(copyed, 0, length * sizeof(int));
     
-    __merge_sort_recursively(sequence, 0, length - 1, is_left_smaller, &cache);
+    __merge_sort_recursively(sequence, 0, length - 1, is_left_smaller, cache);
     free(cache);
     return 0;
 }
 
-void __merge_sort_recursively(int *sequence, size_t start, size_t end, bool (*is_left_smaller)(int, int), int **cache) {
+void __merge_sort_recursively(int *sequence, size_t start, size_t end, bool (*is_left_smaller)(int, int), int *cache) {
     if (start == end) {
-        (*cache)[start] = sequence[start];
+        cache[start] = sequence[start];
         return;
     }
     
@@ -129,18 +129,18 @@ void __merge_sort_recursively(int *sequence, size_t start, size_t end, bool (*is
     size_t cache_array_index = start;
     while (left_array_index <= division_index && right_array_index <= end) // 较小者拷入临时序列
         if (is_left_smaller(sequence[left_array_index], sequence[right_array_index]))
-            (*cache)[cache_array_index ++] = sequence[left_array_index ++];
+            cache[cache_array_index ++] = sequence[left_array_index ++];
         else
-            (*cache)[cache_array_index ++] = sequence[right_array_index ++];
+            cache[cache_array_index ++] = sequence[right_array_index ++];
     
     // 追加剩余元素, 由于两个子序列都是有序, 故以下的两个while只有其一可进入.
     while (left_array_index <= division_index)
-        (*cache)[cache_array_index ++] = sequence[left_array_index ++];
+        cache[cache_array_index ++] = sequence[left_array_index ++];
     while (right_array_index <= end)
-        (*cache)[cache_array_index ++] = sequence[right_array_index ++];
+        cache[cache_array_index ++] = sequence[right_array_index ++];
     
     // 把当前归并得到的有序子序列拷回至原始序列对应的位置.
     for (size_t i = start; i <= end; ++ i)
-        sequence[i] = (*cache)[i];
+        sequence[i] = cache[i];
 }
 

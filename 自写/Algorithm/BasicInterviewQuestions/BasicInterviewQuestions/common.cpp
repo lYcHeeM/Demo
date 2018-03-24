@@ -43,3 +43,11 @@ const char * file_name() {
 //    printf(">>[%s]--[line:%ld]:\n",  &(__FILE__[i+1]), __LINE__);
 //}
 
+bool double_equal(double left, double right) {
+    double tolerance = 1e-6;
+    if (left - right >= -tolerance && left - right <= tolerance)
+        return true;
+    else
+        return false;
+}
+

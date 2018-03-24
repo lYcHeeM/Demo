@@ -1,0 +1,8 @@
+replaceInstanceMethod('ViewController', 'crashMethod:', function(instance, originalInvocation, arguments) {
+	if (arguments[0].length == 0) {
+		console.log('Index out of bounds');
+        return false;
+	} else {
+        return true;
+	}
+});

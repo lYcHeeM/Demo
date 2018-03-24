@@ -37,10 +37,10 @@ bool array_search_value_in_partitial_sorted_matrix(int *matrix, size_t rows, siz
 }
 
 /// 归并两个有序数组，把第二个数组的元素插入到第一个数组的合适位置，使得归并后的序列还是有序，
-/// 此处假定第一个数组后面有足够的空间，且简便其间，不做出错处理。
+/// 此处假定第一个数组后面有足够的空间，且简便起见，不做出错处理。
 void merge_two_sorted_array_without_temp_memory(int *seq1, size_t length1, const int *seq2, size_t length2) {
     size_t total_len = length1 + length2;
-    // 指向第一个序列中，当前写数据的地方
+    // 指向第一个序列的末尾，即为当前可写数据的地方
     size_t writing_index = total_len - 1;
     int tail1 = (int)(length1 - 1);
     int tail2 = (int)(length2 - 1);

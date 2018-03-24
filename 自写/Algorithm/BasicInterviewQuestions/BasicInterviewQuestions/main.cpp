@@ -15,6 +15,7 @@
 #include <string.h>
 #include "AboutArray.hpp"
 #include "AboutGraph.hpp"
+#include "AboutBitOperation.hpp"
 
 using namespace std;
 
@@ -67,7 +68,10 @@ int main(int argc, const char * argv[]) {
     
 //    test_merge_two_sorted_array_without_temp_memory();
 //    test_multimap();
-    test_DALGraph_topological_sort();
+//    test_DALGraph_topological_sort();
+    
+    double result = my_power(2, 31, NULL);
+    debug_log("%lf\n", result);
     
     return 0;
 }

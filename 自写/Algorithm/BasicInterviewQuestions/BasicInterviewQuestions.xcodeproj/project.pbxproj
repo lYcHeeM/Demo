@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B22D5EF8204AD2E7006C22E7 /* AboutString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B22D5EF6204AD2E7006C22E7 /* AboutString.cpp */; };
 		B20367AE205A6A470061E469 /* AboutArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B20367AC205A6A470061E469 /* AboutArray.cpp */; };
 		B20367B1205A6BF10061E469 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B20367B0205A6BF10061E469 /* common.cpp */; };
+		B22D5EF8204AD2E7006C22E7 /* AboutString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B22D5EF6204AD2E7006C22E7 /* AboutString.cpp */; };
 		B25799642030396200E72C16 /* AboutGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B25799622030396200E72C16 /* AboutGraph.cpp */; };
 		B2796143204D1F120002B2B0 /* AboutPermutation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2796141204D1F120002B2B0 /* AboutPermutation.cpp */; };
+		B287F634206340770010E997 /* AboutBitOperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B287F632206340770010E997 /* AboutBitOperation.cpp */; };
 		B29F9D8F202063EB00B4DC36 /* PartitionApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B29F9D8E202063EB00B4DC36 /* PartitionApplication.cpp */; };
 		B29F9D922022B90500B4DC36 /* AboutLinkedList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B29F9D902022B90500B4DC36 /* AboutLinkedList.cpp */; };
 		B29F9D9820240B7400B4DC36 /* AboutBinaryTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B29F9D9620240B7400B4DC36 /* AboutBinaryTree.cpp */; };
@@ -32,16 +33,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B22D5EF6204AD2E7006C22E7 /* AboutString.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AboutString.cpp; sourceTree = "<group>"; };
-		B22D5EF7204AD2E7006C22E7 /* AboutString.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AboutString.hpp; sourceTree = "<group>"; };
 		B20367AC205A6A470061E469 /* AboutArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AboutArray.cpp; sourceTree = "<group>"; };
 		B20367AD205A6A470061E469 /* AboutArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AboutArray.hpp; sourceTree = "<group>"; };
 		B20367AF205A6A8F0061E469 /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		B20367B0205A6BF10061E469 /* common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
+		B22D5EF6204AD2E7006C22E7 /* AboutString.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AboutString.cpp; sourceTree = "<group>"; };
+		B22D5EF7204AD2E7006C22E7 /* AboutString.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AboutString.hpp; sourceTree = "<group>"; };
 		B25799622030396200E72C16 /* AboutGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AboutGraph.cpp; sourceTree = "<group>"; };
 		B25799632030396200E72C16 /* AboutGraph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AboutGraph.hpp; sourceTree = "<group>"; };
 		B2796141204D1F120002B2B0 /* AboutPermutation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AboutPermutation.cpp; sourceTree = "<group>"; };
 		B2796142204D1F120002B2B0 /* AboutPermutation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AboutPermutation.hpp; sourceTree = "<group>"; };
+		B287F632206340770010E997 /* AboutBitOperation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AboutBitOperation.cpp; sourceTree = "<group>"; };
+		B287F633206340770010E997 /* AboutBitOperation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AboutBitOperation.hpp; sourceTree = "<group>"; };
 		B29F9D8D202063EB00B4DC36 /* PartitionApplication.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PartitionApplication.hpp; sourceTree = "<group>"; };
 		B29F9D8E202063EB00B4DC36 /* PartitionApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PartitionApplication.cpp; sourceTree = "<group>"; };
 		B29F9D902022B90500B4DC36 /* AboutLinkedList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AboutLinkedList.cpp; sourceTree = "<group>"; };
@@ -103,6 +106,8 @@
 				B22D5EF6204AD2E7006C22E7 /* AboutString.cpp */,
 				B2796142204D1F120002B2B0 /* AboutPermutation.hpp */,
 				B2796141204D1F120002B2B0 /* AboutPermutation.cpp */,
+				B287F633206340770010E997 /* AboutBitOperation.hpp */,
+				B287F632206340770010E997 /* AboutBitOperation.cpp */,
 			);
 			path = BasicInterviewQuestions;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2796143204D1F120002B2B0 /* AboutPermutation.cpp in Sources */,
+				B287F634206340770010E997 /* AboutBitOperation.cpp in Sources */,
 				B22D5EF8204AD2E7006C22E7 /* AboutString.cpp in Sources */,
 				B20367AE205A6A470061E469 /* AboutArray.cpp in Sources */,
 				B25799642030396200E72C16 /* AboutGraph.cpp in Sources */,

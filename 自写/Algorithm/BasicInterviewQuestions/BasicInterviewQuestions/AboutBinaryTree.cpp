@@ -19,9 +19,11 @@ BTNodePt binary_tree_node_create(int value) {
 
 /// 给出两颗根节点相同的树，判断tree1是否包含tree2
 bool doesTree1ContainsTree2_recursively(BTNodePt tree1, BTNodePt tree2) {
-    if (!tree1) return false;
     // 此处规定, 如果tree2为空树, 表示tree2是tree1的子树
+    // 注意以下两个if的顺序不能变，因为如果tree1 == tree2 == NULL，即上层调用同时达到两棵树的叶子节点，此时应该return true,
+    // 也可以这么理解，只要tree2在tree1之前为null的话，即满足条件
     if (!tree2) return true;
+    if (!tree1) return false;
     
     if (tree1->value != tree2->value)
         return false;
@@ -50,7 +52,7 @@ int binary_tree_has_subtree_recursively(BTNodePt tree1, BTNodePt tree2, bool *re
 /// 求一颗二叉树的镜像
 int binary_tree_mirror_recursively(BTNodePt tree) {
     if (!tree) return -1;
-    if (!tree->p_left && !tree->p_right) return -2;
+    if (!tree->p_left && !tree->p_right) return 0;
     
     // 交换根节点的左右子树
     BTNodePt temp_left_subtree = tree->p_left;
@@ -64,35 +66,35 @@ int binary_tree_mirror_recursively(BTNodePt tree) {
     return 0;
 }
 
-
-/// 求一颗二叉树的镜像, 循环方式
-int binary_tree_mirror(BTNodePt tree) {
-    if (!tree) return -1;
-    if (!tree->p_left && !tree->p_right) return -2;
-    
-    // 交换根节点的左右子树
-    BTNodePt temp_left_subtree = tree->p_left;
-    tree->p_left = tree->p_right;
-    tree->p_right = temp_left_subtree;
-    
-    BTNodePt left_subtree = tree->p_left;
-    while (left_subtree->p_left || left_subtree->p_right) {
-        BTNodePt temp = left_subtree->p_left;
-        left_subtree->p_left = left_subtree->p_right;
-        left_subtree->p_right = temp;
-        left_subtree = left_subtree->p_left;
-    }
-    
-    BTNodePt right_subtree = tree->p_right;
-    while (right_subtree->p_left || right_subtree->p_right ) {
-        BTNodePt temp = right_subtree->p_left;
-        right_subtree->p_left = right_subtree->p_right;
-        right_subtree->p_right = temp;
-        right_subtree = right_subtree->p_right;
-    }
-    
-    return 0;
-}
+// 以下代码有错误
+///// 求一颗二叉树的镜像, 循环方式
+//int binary_tree_mirror(BTNodePt tree) {
+//    if (!tree) return -1;
+//    if (!tree->p_left && !tree->p_right) return 0;
+//    
+//    // 交换根节点的左右子树
+//    BTNodePt temp_left_subtree = tree->p_left;
+//    tree->p_left = tree->p_right;
+//    tree->p_right = temp_left_subtree;
+//    
+//    BTNodePt left_subtree = tree->p_left;
+//    while (left_subtree->p_left || left_subtree->p_right) {
+//        BTNodePt temp = left_subtree->p_left;
+//        left_subtree->p_left = left_subtree->p_right;
+//        left_subtree->p_right = temp;
+//        left_subtree = left_subtree->p_left;
+//    }
+//    
+//    BTNodePt right_subtree = tree->p_right;
+//    while (right_subtree->p_left || right_subtree->p_right ) {
+//        BTNodePt temp = right_subtree->p_left;
+//        right_subtree->p_left = right_subtree->p_right;
+//        right_subtree->p_right = temp;
+//        right_subtree = right_subtree->p_right;
+//    }
+//    
+//    return 0;
+//}
 
 /// 由前序遍历序列和中序遍历序列构造一颗二叉树;
 /// 可见解决很多问题, 都可以先具象一个状态出来, 再看这个状态与前驱和后继的关系,
