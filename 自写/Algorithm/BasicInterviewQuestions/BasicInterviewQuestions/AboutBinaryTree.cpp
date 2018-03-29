@@ -7,6 +7,7 @@
 //
 
 #include "AboutBinaryTree.hpp"
+#include <vector>
 
 BTNodePt binary_tree_node_create(int value) {
     BTNodePt node = (BTNodePt)malloc(sizeof(BinaryTreeNode));
@@ -311,12 +312,10 @@ int binary_tree_traversal_lastorder(BTNodePt tree, void (* visit)(BTNodePt)) {
 #endif
 }
 
-#pragma mark -
-#include <vector>
 /// 打印一颗二叉树的所有路径
 int binary_tree_print_all_paths(BTNodePt tree) {
     if (!tree) return -1;
-    printf("\n=====All paths=====\n");
+    debug_log("\n=====All paths=====\n");
     // 因打印路径要从头开始遍历, 而std::vector既可以当作栈使用,
     // 也可以当作普通的数组使用, 故此处不用栈保存遍历节点;
     std::vector<BTNodePt> stack;
@@ -351,8 +350,72 @@ int binary_tree_print_all_paths(BTNodePt tree) {
             }
         }
     }
-    printf("\n=====End all paths=====\n");
+    printf("=====End all paths=====\n");
     return 0;
+}
+
+/// 求一颗二叉树的深度，思路同后续遍历，即先求左右子树的深度，
+/// 把其中较大者加一即为当前根节点所引用子树的深度
+size_t binary_tree_deepth_recursively(BTNodePt tree) {
+    if (!tree) return 0;
+    
+    size_t left_subtree_deepth  = binary_tree_deepth_recursively(tree->p_left);
+    size_t right_subtree_deepth = binary_tree_deepth_recursively(tree->p_right);
+    
+    return left_subtree_deepth >= right_subtree_deepth ? left_subtree_deepth + 1 : right_subtree_deepth + 1;
+}
+
+bool __binary_tree_balance(BTNodePt tree, size_t *tree_deepth);
+/// 判断一个二叉树是否平衡
+bool binary_tree_balance(BTNodePt tree) {
+    size_t deepth = 0;
+    bool result = __binary_tree_balance(tree, &deepth);
+    return result;
+}
+bool __binary_tree_balance(BTNodePt tree, size_t *tree_deepth) {
+    if (!tree) {
+        if (tree_deepth) *tree_deepth = 0;
+        return true;
+    }
+    
+    // 判断左右子树是否平衡的同时，分别记录它们的深度，如此才得以判断以当前节点为根子树是否平衡
+    size_t left_subtree_deepth = 0;
+    bool left_subtree_balance = __binary_tree_balance(tree->p_left, &left_subtree_deepth);
+    
+    size_t right_subtree_deepth = 0;
+    bool right_subtree_balance = __binary_tree_balance(tree->p_right, &right_subtree_deepth);
+    
+    if (tree_deepth) {
+        *tree_deepth = left_subtree_deepth >= right_subtree_deepth ? left_subtree_deepth + 1 : right_subtree_deepth + 1;
+    }
+    if (left_subtree_balance && right_subtree_balance) {
+        int deepth_delta = (int)left_subtree_deepth - (int)right_subtree_deepth;
+        return deepth_delta <= 1 && deepth_delta >= -1;
+    }
+    return false;
+}
+
+BTNodePt __binary_tree_lowest_common_ancestor(BTNodePt tree, BTNodePt A, BTNodePt B);
+/// 求一颗二叉树中任意两个不同节点的公共祖先（lca）;
+/// 方法：
+int binary_tree_lowest_common_ancestor(BTNodePt tree, BTNodePt A, BTNodePt B, BTNodePt *result) {
+    if (!tree || !A || !B || A == B) return -1;
+    if (!result) return -2;
+    
+    BTNodePt ret = __binary_tree_lowest_common_ancestor(tree, A, B);
+    *result = ret;
+    
+    return 0;
+}
+BTNodePt __binary_tree_lowest_common_ancestor(BTNodePt tree, BTNodePt A, BTNodePt B) {
+    if (!tree || tree == A || tree == B) return tree;
+    
+    BTNodePt first_lca_found_in_leftsubtree  = __binary_tree_lowest_common_ancestor(tree->p_left , A, B);
+    BTNodePt first_lca_found_in_rightsubtree = __binary_tree_lowest_common_ancestor(tree->p_right, A, B);
+    if (first_lca_found_in_leftsubtree && first_lca_found_in_rightsubtree)
+        return tree;
+    else
+        return first_lca_found_in_leftsubtree ? first_lca_found_in_leftsubtree : first_lca_found_in_rightsubtree;
 }
 
 #pragma mark - BST
@@ -514,6 +577,10 @@ void test_binary_tree() {
     printf("\n");
     binary_tree_traversal_inorder(result, binary_tree_node_print);
     printf("\n");
+    
+    debug_log("deepth: %ld", binary_tree_deepth_recursively(result));
+    bool isbalance = binary_tree_balance(result);
+    debug_log("isbalance: %d", isbalance);
     
     // 输出所有路径
     binary_tree_print_all_paths(result);

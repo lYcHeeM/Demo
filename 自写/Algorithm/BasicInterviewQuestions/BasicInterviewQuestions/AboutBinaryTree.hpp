@@ -50,6 +50,13 @@ int binary_tree_traversal_lastorder(BTNodePt tree, void (* visit)(BTNodePt));
 /// 打印一颗二叉树的所有路径
 int binary_tree_print_all_paths(BTNodePt tree);
 
+/// 求一颗二叉树的深度，思路同后续遍历，即先求左右子树的深度，
+/// 把其中较大者加一即为当前根节点所引用子树的深度
+size_t binary_tree_deepth_recursively(BTNodePt tree);
+
+/// 判断一个二叉树是否平衡
+bool binary_tree_balance(BTNodePt tree);
+
 #pragma mark - BST
 /// 用一个不含相等元素的线性序列创建一颗二叉搜索树(非平衡)，
 /// 简便起见，暂不考虑相等元素的情况（比较复杂，可能涉及到树的删除操作）
