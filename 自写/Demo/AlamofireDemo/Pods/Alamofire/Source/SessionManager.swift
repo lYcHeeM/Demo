@@ -104,7 +104,8 @@ open class SessionManager {
                     return "Alamofire/\(build)"
                 }()
 
-                return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
+                let a = "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
+                return a
             }
 
             return "Alamofire"

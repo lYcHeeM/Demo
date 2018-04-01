@@ -30,7 +30,7 @@
 		B216D97D1FB4599900714EF7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B216D9801FB4599900714EF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B216D9821FB4599900714EF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B216D9881FB459F900714EF7 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		B216D9881FB459F900714EF7 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B216D9941FB99F1000714EF7 /* PAEncryptTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PAEncryptTool.swift; path = ../../aaaaaa/aaaaaa/PAEncryptTool.swift; sourceTree = "<group>"; };
 		B216D9961FB99F1D00714EF7 /* AlamofireDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AlamofireDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		B2EE4B501FD66E3200D01C4C /* PDFWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFWebView.swift; sourceTree = "<group>"; };

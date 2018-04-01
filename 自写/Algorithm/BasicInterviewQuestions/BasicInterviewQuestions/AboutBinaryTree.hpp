@@ -61,8 +61,7 @@ bool binary_tree_balance(BTNodePt tree);
 /// 用一个不含相等元素的线性序列创建一颗二叉搜索树(非平衡)，
 /// 简便起见，暂不考虑相等元素的情况（比较复杂，可能涉及到树的删除操作）
 int binary_search_tree_create_by_sequence(const int *sequence, size_t length, BTNodePt *tree);
-/// 二叉搜索树动态查找, 如果未查找到元素, 将会把元素插入倒叶子节点中.
-/// position返回最后遍历节点的地址(意味着, 搜索成功时, position指向目标节点);
+/// 二叉搜索树查找, position返回最后遍历节点的地址(意味着, 搜索成功时, position指向目标节点);
 bool binary_search_tree_search(BTNodePt tree, int target_value, BTNodePt *position);
 /// 在一颗二叉搜索树中插入一个值为`value`的元素(节点，新的节点申请的内存将放入堆区);
 /// 可见在绝大多数数据结构中，插入一个元素都需要先查找到合适的插入位置;

@@ -357,3 +357,34 @@ void test_linked_list() {
     linked_list_print(merged_list);
 }
 
+/// 链表划分，<=参照值节点的节点置于其左边，否则置于右边。
+/// 除和分割节点外，其他节点的相对位置保持不变。
+int linked_list_partition(LListPt list, int refrence_value) {
+    if (!list || !list->head || list->length == 0) return -1;
+    
+    LNodePt p_node = list->head;
+    
+    // 用两个临时的节点分别牵引 <=参照值 区域和 >参照值 区域
+    LinkedListNode equal_or_lessthan_head;
+    LinkedListNode greaterthan_head;
+    
+    LNodePt p_equal_or_lessthan_node = &equal_or_lessthan_head;
+    LNodePt p_greaterthan_node       = &greaterthan_head;
+    
+    while (p_node) {
+        if (p_node->value <= refrence_value) {
+            p_equal_or_lessthan_node->p_next = p_node;
+            p_equal_or_lessthan_node = p_node;
+        } else {
+            p_greaterthan_node->p_next = p_node;
+            p_greaterthan_node = p_node;
+        }
+        p_node = p_node->p_next;
+    }
+    // 连接两个认为划分的区域
+    p_equal_or_lessthan_node->p_next = greaterthan_head.p_next;
+    // 修改原始链表的头节点
+    list->head = equal_or_lessthan_head.p_next;
+    return 0;
+}
+

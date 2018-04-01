@@ -26,7 +26,7 @@ open class ZJToast: UIView {
     
     fileprivate var style: ZJToastStyle = .textOnly
     fileprivate var shadowView          = UIView()
-    fileprivate var backgroundView      = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    fileprivate var backgroundView      = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     fileprivate var messageLabel        = UILabel()
     fileprivate lazy var progressView: ZJProgressView = {
         let rect = CGRect(x: 0, y: 0, width: 30, height: 30)
@@ -36,7 +36,7 @@ open class ZJToast: UIView {
         return view
     }()
     fileprivate var indicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
         indicator.transform = CGAffineTransform(scaleX: ZJToast.indicatorScale, y: ZJToast.indicatorScale)
         return indicator
     }()
@@ -101,6 +101,7 @@ extension ZJToast {
         
         if style == .indicator {
             shadowView.addSubview(indicator)
+            indicator.startAnimating()
         } else if style == .progress {
             shadowView.addSubview(progressView)
         }

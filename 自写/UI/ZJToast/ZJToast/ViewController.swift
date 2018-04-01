@@ -13,13 +13,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let toast = ZJToast(message: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈", style: .progress, needsCancelButton: true)
+        let toast = ZJToast(message: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈", style: .indicator, needsCancelButton: false)
         view.addSubview(toast)
         toast.progress = 0.5
-        
-        let string: String? = nil
-        let c = string?.components(separatedBy: ";")
-        print(c)
     }
 }
 

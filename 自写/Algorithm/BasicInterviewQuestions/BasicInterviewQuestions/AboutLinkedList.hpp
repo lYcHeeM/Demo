@@ -77,6 +77,10 @@ int linked_list_the_last_Kth_node(LListPt list, size_t k, LNodePt *target_node);
 /// 不会修改原来的链表, 合并后链表中的节点都已从原始链表拷贝;
 int linked_list_merge_two_sorted_list(LListPt first, LListPt second, bool is_ascend, bool is_left_smaller(LNodePt, LNodePt), LListPt *output);
 
+/// 链表划分，<=参照值节点的节点置于其左边，否则置于右边。
+/// 除和分割节点外，其他节点的相对位置保持不变。
+int linked_list_partition(LListPt list, int refrence_value);
+
 #pragma mark - Test
 void test_linked_list();
 
