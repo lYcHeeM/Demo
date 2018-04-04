@@ -7,8 +7,10 @@
 //
 
 import Dispatch
+import Foundation
 
 class Person {
+    
     var atomaticName: String? {
         set {
             debugLogSync("setter in")

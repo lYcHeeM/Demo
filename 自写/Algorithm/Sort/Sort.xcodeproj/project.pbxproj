@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B20A51521D90C9FF002AA486 /* Power.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B20A51501D90C9FF002AA486 /* Power.cpp */; };
+		B207567420730E7A008A4AC4 /* HeapSort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B207567220730E7A008A4AC4 /* HeapSort.cpp */; };
 		B20DA9991E24CAC900A40DD0 /* QuickSort_1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B20DA9971E24CAC900A40DD0 /* QuickSort_1.cpp */; };
 		B290E2ED1D8CABC300CB0E8E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B290E2EC1D8CABC300CB0E8E /* main.cpp */; };
 		B290E2F51D8CABE700CB0E8E /* SelectSort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B290E2F31D8CABE700CB0E8E /* SelectSort.cpp */; };
@@ -31,8 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B20A51501D90C9FF002AA486 /* Power.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Power.cpp; sourceTree = "<group>"; };
-		B20A51511D90C9FF002AA486 /* Power.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Power.hpp; sourceTree = "<group>"; };
+		B207567220730E7A008A4AC4 /* HeapSort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HeapSort.cpp; sourceTree = "<group>"; };
+		B207567320730E7A008A4AC4 /* HeapSort.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HeapSort.hpp; sourceTree = "<group>"; };
 		B20DA9971E24CAC900A40DD0 /* QuickSort_1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuickSort_1.cpp; sourceTree = "<group>"; };
 		B20DA9981E24CAC900A40DD0 /* QuickSort_1.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QuickSort_1.hpp; sourceTree = "<group>"; };
 		B290E2E91D8CABC300CB0E8E /* Sort */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sort; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,8 +96,8 @@
 				B20DA9971E24CAC900A40DD0 /* QuickSort_1.cpp */,
 				B290E3061D8DF44800CB0E8E /* MergeSort.hpp */,
 				B290E3051D8DF44800CB0E8E /* MergeSort.cpp */,
-				B20A51511D90C9FF002AA486 /* Power.hpp */,
-				B20A51501D90C9FF002AA486 /* Power.cpp */,
+				B207567320730E7A008A4AC4 /* HeapSort.hpp */,
+				B207567220730E7A008A4AC4 /* HeapSort.cpp */,
 			);
 			path = Sort;
 			sourceTree = "<group>";
@@ -166,7 +166,7 @@
 				B290E2F81D8CB73400CB0E8E /* BubbleSort.cpp in Sources */,
 				B290E2F51D8CABE700CB0E8E /* SelectSort.cpp in Sources */,
 				B290E2FE1D8D03D400CB0E8E /* ShellSort.cpp in Sources */,
-				B20A51521D90C9FF002AA486 /* Power.cpp in Sources */,
+				B207567420730E7A008A4AC4 /* HeapSort.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
