@@ -64,16 +64,16 @@ int main(int argc, const char * argv[]) {
 //    test_min_value_of_rotated_sorted_array();
 //    test_linked_list();
 //    test_the_Kth_large_algorithm();
-    test_binary_tree();
+//    test_binary_tree();
     
 //    test_merge_two_sorted_array_without_temp_memory();
 //    test_multimap();
-//    test_DALGraph_topological_sort();
+    test_DALGraph();
     
 //    double result = my_power(2, 31, NULL);
 //    debug_log("%lf\n", result);
     
-    test_reverse_string();
+//    test_reverse_string();
     
     return 0;
 }

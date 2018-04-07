@@ -12,4 +12,5 @@
 // 堆排序
 #include <stdio.h>
 
+int heap_sort(int *array, size_t length, bool ascending);
 #endif /* HeapSort_hpp */

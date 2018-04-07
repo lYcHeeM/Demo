@@ -21,22 +21,22 @@ bool is_left_smaller(const void *p_left, const void *p_right) {
 }
 
 void __adjust_heap_in_array(int *array, size_t cur_node_index, size_t length, bool greater_heap, bool (*is_left_smaller)(const void *, const void *));
-int heap_sort(int *array, size_t length) {
+int heap_sort(int *array, size_t length, bool ascending) {
     if (!array || length == 0) return -1;
     // 初始化大顶堆
     for (long i = long(length/2) - 1; i >= 0; -- i) {
-        __adjust_heap_in_array(array, i, length, true, is_left_smaller);
+        __adjust_heap_in_array(array, i, length, ascending, is_left_smaller);
     }
 
-    for (long i = long(length) - 1; i >= 0; -- i) {
+    for (long i = long(length) - 1; i > 0; -- i) {
         // 由于大顶堆的头元素最大，故把最大值和当前带排序子序列的尾值交换，使最大值跑到子序列的
-        // 末尾，这样便可一步步实现原始序列的剩余排序。
+        // 末尾，这样便可一步步实现原始序列的升序排序。
         int temp = array[0];
         array[0] = array[i];
         array[i] = temp;
         
         // 使剩余元素依然满足大顶堆性质，从刚刚被交换的节点开始调整
-        __adjust_heap_in_array(array, 0, length - i, true, is_left_smaller);
+        __adjust_heap_in_array(array, 0, i, ascending, is_left_smaller);
     }
     return 0;
 }
@@ -50,7 +50,7 @@ int heap_sort(int *array, size_t length) {
 /// @param greater_heap 是否大顶堆，否的话则认为是小顶堆
 /// @param is_left_smaller 用于比较的谓词
 void __adjust_heap_in_array(int *array, size_t cur_node_index, size_t length, bool greater_heap, bool (*is_left_smaller)(const void *, const void *)) {
-    if (!array || length == 0 || !is_left_smaller) return;
+    if (!array || length <= 1 || !is_left_smaller) return;
     assert(cur_node_index < length);
     
     // 当前待调整节点的值
