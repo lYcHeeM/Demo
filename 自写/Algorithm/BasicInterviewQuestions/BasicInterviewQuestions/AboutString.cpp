@@ -57,7 +57,7 @@ int atoint32(const char *string, int *error_code) {
             if (result > int32_max + 1) {
                 result = int32_min;
                 if (error_code) *error_code = -3;
-                break;
+                return (int)result;
             }
         }
         number ++;

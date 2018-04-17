@@ -59,7 +59,14 @@ bool binary_tree_balance(BTNodePt tree);
 
 #pragma mark - BST
 /// 用一个不含相等元素的线性序列创建一颗二叉搜索树(非平衡)，
-/// 简便起见，暂不考虑相等元素的情况（比较复杂，可能涉及到树的删除操作）
+/// 简便起见，暂不考虑相等元素的情况（比较复杂，可能涉及到树的删除操作）;
+/// - 由于每次把剩余序列中的一个元素插入到已构建好的二叉搜索树中，所需平均时间为O(logk)，
+/// k为当前二叉搜索树的元素个数，则构建含n个元素的二叉搜索树的总平均时间复杂度为：
+/// <O(log0)> + O(log1) + O(log2) + O(log3) + ... + O(log(n-1)) =
+/// O(log1 + log2 + ... + log(n-1)) = O(log1*2*...*(n-1)) = O(log(n-1)!) 约等于
+/// O(log(n-1)^2) = O(2log(n-1)) -> O(logn);
+/// - 当二叉搜索树的每个节点都只有左子树或只有右子树时，它将退化到线性表，此时达到最差时间复杂度，为：
+/// O(1) + O(2) + ... + O(n-1) = O(n^2/2) -> O(n^2)
 int binary_search_tree_create_by_sequence(const int *sequence, size_t length, BTNodePt *tree);
 /// 二叉搜索树查找, position返回最后遍历节点的地址(意味着, 搜索成功时, position指向目标节点);
 bool binary_search_tree_search(BTNodePt tree, int target_value, BTNodePt *position);
