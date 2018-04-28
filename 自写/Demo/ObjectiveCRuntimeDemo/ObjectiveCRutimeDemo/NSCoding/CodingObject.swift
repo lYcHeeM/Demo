@@ -20,7 +20,7 @@ import UIKit
  */
 class CodingObject: NSObject, NSCoding {
     
-    /// "存储属性"的名称, 包含从父类继承的属性, 不包括NSObject基类的属性
+    /// 所有"存储属性"的名称, 包含从父类继承的属性, 不包括NSObject基类的属性
     var propertyNames: [String]? {
         var selfClass: AnyClass? = self.classForCoder
         var names = [String]()

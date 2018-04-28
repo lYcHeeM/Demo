@@ -15,9 +15,11 @@ class CodingController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(SubModel().propertyNames)
     }
     
     @IBAction func archive(_ sender: Any) {
+        // 注: archiveRootObject会覆盖原有数据
         if NSKeyedArchiver.archiveRootObject(testModel, toFile: path) {
             UIAlertView(title: nil, message: "Archive successed", delegate: nil, cancelButtonTitle: "确定").show()
         }
