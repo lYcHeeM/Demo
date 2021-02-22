@@ -50,7 +50,7 @@
 		B285E8EF1E5ADB1000EEC8E9 /* EmoticonCloseButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EmoticonCloseButton@2x.png"; sourceTree = "<group>"; };
 		B285E8F01E5ADB1000EEC8E9 /* EmoticonCloseButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EmoticonCloseButton@3x.png"; sourceTree = "<group>"; };
 		B285E8F31E5AE33100EEC8E9 /* AlbumAddBtnHL@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlbumAddBtnHL@2x.png"; sourceTree = "<group>"; };
-		B29415FD1EC43BC00087B4F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		B29415FD1EC43BC00087B4F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CA49A076286B12D96139B07C /* Pods-asdfaf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-asdfaf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-asdfaf/Pods-asdfaf.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +174,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -394,7 +395,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "asdfaf/asdfaf-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -409,7 +410,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rickluo.asdfaf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "asdfaf/asdfaf-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

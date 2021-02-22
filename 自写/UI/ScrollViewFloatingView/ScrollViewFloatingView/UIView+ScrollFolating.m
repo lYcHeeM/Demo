@@ -91,11 +91,15 @@ void asd ()
     } else if ([self isKindOfClass:[UIView class]]) {
         floatingView = self;
     }
-    if (floatingView.frame.origin.y + (- scrollView.contentOffset.y) < 64 && floatingView.superview == floatingView.zj_originalSuperView) {
+    CGFloat navigationBarHeight = 64.f;
+    if (@available(iOS 11.0, *)) {
+        navigationBarHeight = scrollView.safeAreaInsets.top;
+    }
+    if (floatingView.frame.origin.y + (- scrollView.contentOffset.y) < navigationBarHeight && floatingView.superview == floatingView.zj_originalSuperView) {
         floatingView.zj_originalFrame = [NSValue valueWithCGRect:floatingView.frame];
         [floatingView.zj_floatingSuperView addSubview:floatingView];
         floatingView.frame = [floatingView.zj_floatingFrame CGRectValue];
-    } else if (floatingView.zj_originalFrame.CGRectValue.origin.y + (- scrollView.contentOffset.y) > 64 && floatingView.superview == floatingView.zj_floatingSuperView) {
+    } else if (floatingView.zj_originalFrame.CGRectValue.origin.y + (- scrollView.contentOffset.y) > navigationBarHeight && floatingView.superview == floatingView.zj_floatingSuperView) {
         [floatingView.zj_originalSuperView addSubview:floatingView];
         CGRect frame = [floatingView.zj_originalFrame CGRectValue];
         floatingView.frame = frame;

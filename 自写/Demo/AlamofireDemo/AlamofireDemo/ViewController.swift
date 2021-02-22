@@ -16,6 +16,10 @@ class ViewController: UIViewController, QLPreviewControllerDataSource, UIDocumen
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        request("https://httpbin.org/post?key={\"user_id\":472,\"room_id\":604,\"type\":1}", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { (response) in
+            print(response.response)
+            print(response.error)
+        }
 //        request("https://httpbin.org/post").response { (response) in
 //            print(response.request?.httpBodyStream)
 //            print(response.response)

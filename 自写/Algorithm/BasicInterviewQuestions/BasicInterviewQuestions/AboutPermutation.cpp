@@ -92,10 +92,10 @@ void string_permutations_test() {
     size_t permutations_count = 0;
     int error_code = string_permutations("ABCD", &result, &permutations_count);
     if (error_code < 0) printf("error code: %d\n", error_code);
-        for (size_t i = 1; i <= permutations_count; ++ i) {
-            printf("%s    ", result[i-1]);
-            if (i % 10 == 0) printf("\n");
-                }
+    for (size_t i = 1; i <= permutations_count; ++ i) {
+        printf("%s    ", result[i-1]);
+        if (i % 10 == 0) printf("\n");
+    }
     printf("\n");
 }
 

@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B215B1D61D84AF9C001E33DC /* 03_first_triangle_practise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B215B1D41D84AF9C001E33DC /* 03_first_triangle_practise.cpp */; };
+		B269787621118B8E00870C2D /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B269787521118B8E00870C2D /* libGLEW.2.0.0.dylib */; };
+		B269787821118D6200870C2D /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B269787721118D6200870C2D /* libglfw.3.2.dylib */; };
 		B2969C041D774CEF005E30A5 /* getting_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2969C031D774CEF005E30A5 /* getting_start.cpp */; };
 		B2969C0B1D774EA9005E30A5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2969C0A1D774EA9005E30A5 /* OpenGL.framework */; };
-		B2969C121D7758D1005E30A5 /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B2969C0C1D774FCF005E30A5 /* libGLEW.2.0.0.dylib */; };
-		B2969C131D7758DC005E30A5 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B2969C101D7755D2005E30A5 /* libglfw.3.2.dylib */; };
 		B2969C151D786E5D005E30A5 /* first_triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2969C141D786E5D005E30A5 /* first_triangle.cpp */; };
 		B2969C181D786EE9005E30A5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2969C161D786EE9005E30A5 /* main.cpp */; };
 		B2969C1F1D7925A9005E30A5 /* helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2969C1E1D7925A9005E30A5 /* helpers.cpp */; };
@@ -32,12 +32,11 @@
 /* Begin PBXFileReference section */
 		B215B1D41D84AF9C001E33DC /* 03_first_triangle_practise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 03_first_triangle_practise.cpp; sourceTree = "<group>"; };
 		B215B1D51D84AF9C001E33DC /* 03_first_triangle_practise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 03_first_triangle_practise.h; sourceTree = "<group>"; };
+		B269787521118B8E00870C2D /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../../../usr/local/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
+		B269787721118D6200870C2D /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
 		B2969C001D774CEF005E30A5 /* 01-GettingStart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "01-GettingStart"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2969C031D774CEF005E30A5 /* getting_start.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = getting_start.cpp; sourceTree = "<group>"; };
 		B2969C0A1D774EA9005E30A5 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		B2969C0C1D774FCF005E30A5 /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../usr/local/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
-		B2969C0E1D77516E005E30A5 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = "glfw-3.2.1/build/src/Debug/libglfw.3.2.dylib"; sourceTree = "<group>"; };
-		B2969C101D7755D2005E30A5 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../usr/local/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
 		B2969C141D786E5D005E30A5 /* first_triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = first_triangle.cpp; sourceTree = "<group>"; };
 		B2969C161D786EE9005E30A5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B2969C191D787004005E30A5 /* getting_start.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = getting_start.h; sourceTree = "<group>"; };
@@ -52,8 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2969C131D7758DC005E30A5 /* libglfw.3.2.dylib in Frameworks */,
-				B2969C121D7758D1005E30A5 /* libGLEW.2.0.0.dylib in Frameworks */,
+				B269787821118D6200870C2D /* libglfw.3.2.dylib in Frameworks */,
+				B269787621118B8E00870C2D /* libGLEW.2.0.0.dylib in Frameworks */,
 				B2969C0B1D774EA9005E30A5 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,15 +60,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B248A87C21115F0700A4A8DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B269787721118D6200870C2D /* libglfw.3.2.dylib */,
+				B269787521118B8E00870C2D /* libGLEW.2.0.0.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B2969BF71D774CEF005E30A5 = {
 			isa = PBXGroup;
 			children = (
-				B2969C101D7755D2005E30A5 /* libglfw.3.2.dylib */,
-				B2969C0E1D77516E005E30A5 /* libglfw.3.2.dylib */,
-				B2969C0C1D774FCF005E30A5 /* libGLEW.2.0.0.dylib */,
 				B2969C0A1D774EA9005E30A5 /* OpenGL.framework */,
 				B2969C021D774CEF005E30A5 /* 01-GettingStart */,
 				B2969C011D774CEF005E30A5 /* Products */,
+				B248A87C21115F0700A4A8DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -252,12 +258,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "01-GettingStart/PrefixCompile.h";
 				HEADER_SEARCH_PATHS = (
+					/Users/luozhijun/Documents/Projects/OpenGL/glad/include,
 					/usr/local/include,
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
+					/usr/local/Cellar/glfw/3.2.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -269,12 +277,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "01-GettingStart/PrefixCompile.h";
 				HEADER_SEARCH_PATHS = (
+					/Users/luozhijun/Documents/Projects/OpenGL/glad/include,
 					/usr/local/include,
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
+					/usr/local/Cellar/glfw/3.2.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

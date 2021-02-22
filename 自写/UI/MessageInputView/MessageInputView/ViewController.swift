@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         view.layer.anchorPoint = anchorPoint
     }
     
-    func action1() {
+    @objc func action1() {
         let deltaHeight = 30 - self.inputView1.frame.size.height
         UIView.animate(withDuration: 1) { 
             self.inputView1.frame.size.height = 30
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func action2() {
+    @objc func action2() {
         let deltaHeight = 30 - self.view1.frame.size.height
         UIView.animate(withDuration: 1) {
             self.view1.frame.size.height = 30

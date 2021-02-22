@@ -235,7 +235,7 @@ class ViewController: UIViewController, QBImagePickerControllerDelegate {
         print("")
     }
     
-    func btn2Clicked() {
+    @objc func btn2Clicked() {
         if self.imagePickerController == nil {
             self.imagePickerController = QBImagePickerController()
         }
@@ -248,7 +248,7 @@ class ViewController: UIViewController, QBImagePickerControllerDelegate {
         self.present(imagePickerController, animated: true, completion: nil)
     }
     
-    func drag(sender: UILongPressGestureRecognizer) {
+    @objc func drag(sender: UILongPressGestureRecognizer) {
         guard let view = sender.view else { return }
         let point = sender.location(in: self.view)
         if sender.state == .began {

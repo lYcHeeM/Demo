@@ -38,7 +38,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = "哈哈哈aaa"
         let isOpen = openControl[indexPath.row]
         if isOpen {
-            cell.addSubview(pickerView)
+            cell.contentView.addSubview(pickerView)
             pickerView.frame = CGRect(x: 0, y: 44, width: view.frame.width, height: 216)
             pickerView.isHidden = false
         } else {

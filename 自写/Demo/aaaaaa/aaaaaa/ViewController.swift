@@ -15,6 +15,6 @@ class ViewController: UIViewController {
         
         let value = "哈哈哈".encryptedString(with: .SHA512, isHmac: true, hmacKey: "tzVIhxznsUR2")
         print(value)
-        print(value.base64Encoded)
+        print(value.1)
     }
 }

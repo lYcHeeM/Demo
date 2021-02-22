@@ -27,7 +27,11 @@
     floatingView.zj_scrollView = self.tableView;
     floatingView.zj_originalSuperView = self.view;
     floatingView.zj_floatingSuperView = self.navigationController.view; // [UIApplication sharedApplication].windows.lastObject;//;
-    floatingView.zj_floatingFrame = [NSValue valueWithCGRect:CGRectMake(0, 64, floatingView.frame.size.width, floatingView.frame.size.height)];
+    CGFloat navigationBarHeight = 64.f;
+    if (@available(iOS 11.0, *)) {
+        navigationBarHeight = 88.f;
+    }
+    floatingView.zj_floatingFrame = [NSValue valueWithCGRect:CGRectMake(0, navigationBarHeight, floatingView.frame.size.width, floatingView.frame.size.height)];
     
     self.zj_ownerPropertyName = @"floatingView";
     self.floatingView = floatingView;

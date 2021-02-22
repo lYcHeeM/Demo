@@ -18,12 +18,12 @@ class PAPlaceholderTextView: UITextView {
             layoutIfNeeded()
         }
     }
-    var placeholderAttributes: [String: Any] = defaultPlaceholderAttributes {
+    var placeholderAttributes: [NSAttributedStringKey: Any] = defaultPlaceholderAttributes {
         didSet {
-            if let font = placeholderAttributes[NSFontAttributeName] as? UIFont {
+            if let font = placeholderAttributes[NSAttributedStringKey.font] as? UIFont {
                 placeholderLabel.font = font
             }
-            if let color = placeholderAttributes[NSForegroundColorAttributeName] as? UIColor {
+            if let color = placeholderAttributes[NSAttributedStringKey.foregroundColor] as? UIColor {
                 placeholderLabel.textColor = color
             }
             setNeedsLayout()
@@ -32,19 +32,19 @@ class PAPlaceholderTextView: UITextView {
     }
     var attributedPlaceholder: NSAttributedString?
     
-    static private var defaultPlaceholderAttributes: [String: Any] {
-        return [NSFontAttributeName: UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName: UIColor.lightGray]
+    static private var defaultPlaceholderAttributes: [NSAttributedStringKey: Any] {
+        return [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
     }
     fileprivate var placeholderLabel = UILabel()
     
-    required init(placeholder: String?, placeholderAttributes: [String: Any] = defaultPlaceholderAttributes, textContainer: NSTextContainer?) {
+    required init(placeholder: String?, placeholderAttributes: [NSAttributedStringKey: Any] = defaultPlaceholderAttributes, textContainer: NSTextContainer?) {
         super.init(frame: .zero, textContainer: textContainer)
         self.placeholder = placeholder
         self.placeholderAttributes = placeholderAttributes
         placeholderLabel = UILabel()
         placeholderLabel.text = placeholder
-        placeholderLabel.font = placeholderAttributes[NSFontAttributeName] as! UIFont
-        placeholderLabel.textColor = placeholderAttributes[NSForegroundColorAttributeName] as! UIColor
+        placeholderLabel.font = placeholderAttributes[NSAttributedStringKey.font] as! UIFont
+        placeholderLabel.textColor = placeholderAttributes[NSAttributedStringKey.foregroundColor] as! UIColor
         placeholderLabel.tag = 1
         placeholderLabel.numberOfLines = 0
         addSubview(placeholderLabel)

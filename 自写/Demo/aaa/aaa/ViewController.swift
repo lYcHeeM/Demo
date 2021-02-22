@@ -40,11 +40,11 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboradWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func viewTapped() {
+    @objc func viewTapped() {
         view.endEditing(true)
     }
 
-    func keyboardWillShow(sender: Notification) {
+    @objc func keyboardWillShow(sender: Notification) {
         print(sender.userInfo)
         var keyboardHeight: CGFloat = 260
         var animationDuration: TimeInterval = 0.25
@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         }, completion: nil)
     }
     
-    func keyboradWillHide(sender: Notification) {
+    @objc func keyboradWillHide(sender: Notification) {
         print(sender.userInfo)
         var keyboardHeight: CGFloat = 260
         var animationDuration: TimeInterval = 0.25

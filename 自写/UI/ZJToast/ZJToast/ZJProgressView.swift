@@ -170,7 +170,7 @@ extension ZJProgressView {
             segmentLayer.fillColor   = UIColor.clear.cgColor
             segmentLayer.strokeColor = tintColor?.cgColor
             segmentLayer.lineWidth   = lineWidth
-            segmentLayer.lineCap     = lineCap
+            segmentLayer.lineCap     = CAShapeLayerLineCap(string: lineCap) as String
             segmentLayer.path        = progressPath.cgPath
             layer.addSublayer(segmentLayer)
             

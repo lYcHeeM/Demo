@@ -19,6 +19,7 @@
     [super viewDidLoad];
     
     ZJSecureCodeInputView *secureCodeView = [[ZJSecureCodeInputView alloc] init];
+    secureCodeView.codeCount = 8;
     secureCodeView.frame = CGRectMake(10, 50, self.view.frame.size.width - 2 * 10, 55);
     [self.view addSubview:secureCodeView];
     secureCodeView.inputViewDelegate = self;

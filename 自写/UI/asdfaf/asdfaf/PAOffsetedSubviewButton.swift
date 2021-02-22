@@ -70,6 +70,7 @@ class PAOffsetedSubviewButton: UIButton {
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         baseSetting()
     }
     
@@ -85,10 +86,10 @@ class PAOffsetedSubviewButton: UIButton {
         
         let constraintSize = CGSize(width: frame.width, height: frame.height)
         
-        let titleLabelNeedSize = titleLabel.sizeThatFits(constraintSize)
+        let titleLabelNeedsSize = titleLabel.sizeThatFits(constraintSize)
         var titleH: CGFloat = 0
         var imageH: CGFloat = 0
-        var titleW: CGFloat = titleLabelNeedSize.width
+        var titleW: CGFloat = titleLabelNeedsSize.width
         var imageW = imageView.frame.size.width
         var imageX: CGFloat = 0
         var imageY: CGFloat = imageView.frame.origin.y
@@ -100,7 +101,7 @@ class PAOffsetedSubviewButton: UIButton {
                 titleH = frame.size.height * (1 - imageHeightRatio)
                 imageH = frame.size.height * imageHeightRatio
             } else {
-                titleH = titleLabelNeedSize.height
+                titleH = titleLabelNeedsSize.height
                 imageH = frame.size.height - titleH
             }
             // (imageView多余空白/2.0 + titleLabel多余空白/2.0)/4.0
@@ -111,16 +112,16 @@ class PAOffsetedSubviewButton: UIButton {
             imageX = (frame.size.width - imageW) / 2.0
             imageY = commonMargin
             
-            titleX = (frame.size.width - titleLabelNeedSize.width) / 2.0
+            titleX = (frame.size.width - titleLabelNeedsSize.width) / 2.0
             titleY = frame.size.height - titleH - 2.0 * commonMargin
         } else if style == .imageRightTitleLeft {
             if imageWidthRatio > 0.01 && imageWidthRatio <= 1 {
                 imageW = frame.width * imageWidthRatio
                 titleW = frame.width * (1 - imageWidthRatio)
             }
-            titleH = titleLabelNeedSize.height
+            titleH = titleLabelNeedsSize.height
             imageH = imageView.frame.height
-            imageX = titleX + titleLabelNeedSize.width + imageEdgeInsets.left
+            imageX = titleX + titleLabelNeedsSize.width + imageEdgeInsets.left
         }
         
         titleLabel.frame = CGRect(x: titleX, y: titleY, width: titleW, height: titleH)
